@@ -33,7 +33,6 @@ function Login() {
       method: "post",
       url:  `${process.env.REACT_APP_SHOP_NAME}/signin`,
       withCredentials: true,
-      credentials: 'include',
       data: { username, password },
       headers: {
         'Authorization': process.env.REACT_APP_TOKEN || '',

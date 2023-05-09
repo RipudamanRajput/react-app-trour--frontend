@@ -61,7 +61,7 @@ function Login() {
 
             .then((value) => {
               if (value) {
-                history("/react-app-trour--frontend/panel/Dashboard")
+                history("/panel/Dashboard")
                 window.location.reload()
               }
             })
@@ -109,7 +109,7 @@ function Login() {
                 <Button primary onClick={Loginuser}>Login</Button>
                 <Button
                   onClick={() => {
-                    history('/react-app-trour--frontend');
+                    history('/');
                   }
                   }>Sign Up</Button>
               </Stack>

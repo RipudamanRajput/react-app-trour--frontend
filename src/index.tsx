@@ -50,7 +50,7 @@ root.render(
     <React.StrictMode>
       <ErrorBoundary FallbackComponent={Errorhandler}>
         <Provider store={Store}>
-          <HashRouter >
+          <HashRouter basename='#/react-app-trour--frontend'>
             <App />
           </HashRouter>
         </Provider>

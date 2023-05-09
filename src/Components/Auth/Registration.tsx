@@ -118,7 +118,7 @@ function Registration(props: any | string) {
               <Button
                 fullWidth
                 onClick={() => {
-                  history('/Login')
+                  history('/react-app-trour/Login')
                 }}>Login</Button>
             </Stack>
           </Stack>

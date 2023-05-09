@@ -64,7 +64,7 @@ function Sessionexpire() {
                             </>
                             <Button 
                             primary
-                            onClick={()=>history('react-app-trour--frontend/login')}>
+                            onClick={()=>history('/login')}>
                                 Login
                             </Button>
                         </Stack>

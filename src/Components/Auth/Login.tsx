@@ -61,7 +61,7 @@ function Login() {
 
             .then((value) => {
               if (value) {
-                history("/panel/Dashboard")
+                history("panel/Dashboard")
                 window.location.reload()
               }
             })

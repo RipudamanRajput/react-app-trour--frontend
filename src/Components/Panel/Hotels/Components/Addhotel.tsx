@@ -32,7 +32,7 @@ function Addhotel() {
         )
         const config = {
             method: "post",
-            url: process.env.REACT_APP_SHOP_NAME + "api/addhotel",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/addhotel",
             withCredentials: true,
             data: formdata,
             headers: {

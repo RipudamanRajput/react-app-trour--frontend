@@ -22,7 +22,7 @@ function Edithotel() {
     const updateHotel = () => {
         const config = {
             method: "put",
-            url: process.env.REACT_APP_SHOP_NAME + "api/updatehotel/" + id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/updatehotel/" + id,
             withCredentials: true,
             data: {
                 hotel_name: hotelname,

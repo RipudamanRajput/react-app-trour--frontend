@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/RipudamanRajput/react-app-trour/static/css/main.b47a4337.css",
+    "main.js": "/RipudamanRajput/react-app-trour/static/js/main.36f051a9.js",
+    "static/js/787.e8ebc00c.chunk.js": "/RipudamanRajput/react-app-trour/static/js/787.e8ebc00c.chunk.js",
+    "static/media/Error.jpg": "/RipudamanRajput/react-app-trour/static/media/Error.5320059f764057326641.jpg",
+    "index.html": "/RipudamanRajput/react-app-trour/index.html",
+    "main.b47a4337.css.map": "/RipudamanRajput/react-app-trour/static/css/main.b47a4337.css.map",
+    "main.36f051a9.js.map": "/RipudamanRajput/react-app-trour/static/js/main.36f051a9.js.map",
+    "787.e8ebc00c.chunk.js.map": "/RipudamanRajput/react-app-trour/static/js/787.e8ebc00c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b47a4337.css",
+    "static/js/main.36f051a9.js"
+  ]
+}

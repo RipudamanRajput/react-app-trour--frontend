@@ -18,7 +18,7 @@ function App() {
     return (
       
     <Routes>
-      <Route path='' element={<Registration />} />
+      <Route path='/' element={<Registration />} />
       <Route path='login' element={<Login />} />
       <Route
         path='panel/*'

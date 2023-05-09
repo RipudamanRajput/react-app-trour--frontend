@@ -62,7 +62,7 @@ function Login() {
             .then((value) => {
               if (value) {
                 history("/react-app-trour--frontend/panel/Dashboard")
-                window.location.reload()
+                // window.location.reload()
               }
             })
 

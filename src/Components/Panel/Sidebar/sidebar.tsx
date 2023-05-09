@@ -10,56 +10,56 @@ function Sidebar() {
     }
     const item = [
         {
-            url: 'react-app-trour--frontend/panel/Dashboard',
+            url: '/panel/Dashboard',
             label: 'Dashboard',
             icon: HomeMinor,
             selected: active == "Dashboard",
             onClick: () => setactivetab('Dashboard')
         },
         // {
-        //     url: 'react-app-trour--frontend/panel/Profile',
+        //     url: '/panel/Profile',
         //     label: 'Profile',
         //     icon: OrdersMinor,
         //     selected: active == "Profile",
         //     onClick: () => setactivetab('Profile')
         // },
         // {
-        //     url: 'react-app-trour--frontend/panel/Products',
+        //     url: '/panel/Products',
         //     label: 'Products',
         //     icon: ProductsMinor,
         //     selected: active == "Products",
         //     onClick: () => setactivetab('Products')
         // },
         {
-            url: 'react-app-trour--frontend/panel/Locations',
+            url: '/panel/Locations',
             label: 'Locations',
             icon: LocationsMinor,
             selected: active == "Locations",
             onClick: () => setactivetab('Locations')
         },
         {
-            url: 'react-app-trour--frontend/panel/Hotels',
+            url: '/panel/Hotels',
             label: 'Hotels',
             icon: HomeMinor,
             selected: active == "Hotels",
             onClick: () => setactivetab('Hotels')
         },
         {
-            url: 'react-app-trour--frontend/panel/Packages',
+            url: '/panel/Packages',
             label: 'Packages',
             icon: FinancesMinor,
             selected: active == "Packages",
             onClick: () => setactivetab('Packages')
         },
         {
-            url: 'react-app-trour--frontend/panel/Bookings',
+            url: '/panel/Bookings',
             label: 'Bookings',
             icon: ProductsMinor,
             selected: active == "Bookings",
             onClick: () => setactivetab('Bookings')
         },
         {
-            url: 'react-app-trour--frontend/panel/Users',
+            url: '/panel/Users',
             label: 'Users',
             icon: CustomersMinor,
             selected: active == "Users",

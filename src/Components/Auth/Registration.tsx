@@ -67,7 +67,7 @@ function Registration(props: any | string) {
             })
               .then((value) => {
                 if (value) {
-                  history("/Login")
+                  history("react-app-trour--frontend/Login")
                 }
               })
             )
@@ -118,7 +118,7 @@ function Registration(props: any | string) {
               <Button
                 fullWidth
                 onClick={() => {
-                  history('/Login')
+                  history('react-app-trour--frontend/Login')
                 }}>Login</Button>
             </Stack>
           </Stack>

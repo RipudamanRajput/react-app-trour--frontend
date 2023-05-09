@@ -18,10 +18,10 @@ function App() {
     return (
       
     <Routes >
-      <Route path='' element={<Registration />} />
-      <Route path='/Login' element={<Login />} />
+      <Route path='/react-app-trour--frontend' element={<Registration />} />
+      <Route path='react-app-trour--frontend/Login' element={<Login />} />
       <Route
-        path='/panel/*'
+        path='react-app-trour--frontend/panel/*'
         element={<Panel data={data} />} />
       <Route path='*' element={<TextStyle>404 Page Not Found</TextStyle>} />
     </Routes >

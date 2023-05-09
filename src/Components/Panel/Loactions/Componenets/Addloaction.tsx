@@ -15,7 +15,7 @@ function Addloaction() {
     const addLocation = () => {
         const config = {
             method: "post",
-            url: "http://localhost:3001/api/addloaction" ,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/addloaction",
             withCredentials: true,
             data: {
                 location_name: location,

@@ -9,13 +9,13 @@ function Loaction() {
     const history = useNavigate();
     const [data, setdata] = useState();
     const [loading, setLoading] = useState<boolean>();
-    const [deleted, setdelet] =useState();
+    const [deleted, setdelet] = useState();
 
     useEffect(() => {
         setLoading(true)
         const config = {
             method: "get",
-            url: "http://localhost:3001/api/getloactions",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/getloactions",
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -44,7 +44,7 @@ function Loaction() {
     const deleteLocation = (record: any) => {
         const config = {
             method: "delete",
-            url: "http://localhost:3001/api/removeloaction/" + record.id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/removeloaction/" + record.id,
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',

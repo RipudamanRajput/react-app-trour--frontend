@@ -17,7 +17,7 @@ function Editloaction() {
     const updateLocation = () => {
         const config = {
             method: "put",
-            url: "http://localhost:3001/api/updateloaction/" + id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/updateloaction/" + id,
             withCredentials: true,
             data: {
                 location_name: location,

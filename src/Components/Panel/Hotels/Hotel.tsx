@@ -16,7 +16,7 @@ function Hotels() {
     const deleteHotel = (record: any) => {
         const config = {
             method: "delete",
-            url: "http://localhost:3001/api/removehotel/" + record.id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/removehotel/" + record.id,
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',

@@ -40,6 +40,7 @@ function Hotels() {
             method: "get",
             url: process.env.REACT_APP_SHOP_NAME + "/api/gethotels",
             withCredentials: true,
+            credentials: 'include',
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
                 'Content-Type': 'application/json'

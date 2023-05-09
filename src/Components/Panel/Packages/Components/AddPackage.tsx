@@ -15,7 +15,7 @@ function AddPackage() {
     const addpackage = () => {
         const config = {
             method: "post",
-            url: "http://localhost:3001/api/addpackage",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/addpackage",
             withCredentials: true,
             data: {
                 package_name: Package,

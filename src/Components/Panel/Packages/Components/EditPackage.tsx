@@ -17,7 +17,7 @@ function EditPackage() {
     const updateHotel = () => {
         const config = {
             method: "put",
-            url: "http://localhost:3001/api/updatepackage/" + id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/updatepackage/" + id,
             withCredentials: true,
             data: {
                 package_name: Package,

@@ -15,7 +15,7 @@ function Package() {
         setLoading(true)
         const config = {
             method: "get",
-            url: "http://localhost:3001/api/getpackages",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/getpackages",
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -45,7 +45,7 @@ function Package() {
     const deletePackage = (record: any) => {
         const config = {
             method: "delete",
-            url: "http://localhost:3001/api/removepackage/" + record.id,
+            url: process.env.REACT_APP_SHOP_NAME + "/api/removepackage/" + record.id,
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -132,7 +132,7 @@ function Package() {
                         onClick={() => history('addpackage')}>
                         Add Package
                     </Button>
-                    <Table scroll={{x:1200}} loading={loading} columns={columns} dataSource={data} />
+                    <Table scroll={{ x: 1200 }} loading={loading} columns={columns} dataSource={data} />
                 </Stack>
             </Card>
         </Page>

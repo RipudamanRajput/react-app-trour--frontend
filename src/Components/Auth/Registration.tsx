@@ -31,7 +31,7 @@ function Registration(props: any | string) {
     const { username, password } = detail;
     const config = {
       method: "post",
-      url: "http://localhost:3001/user",
+      url: process.env.REACT_APP_SHOP_NAME + "/user",
       withCredentials: true,
       data: { username, password },
       headers: {

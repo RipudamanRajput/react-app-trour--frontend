@@ -17,7 +17,7 @@ function App() {
   
     return (
       
-    <Routes>
+    <Routes >
       <Route path='/react-app-trour--frontend' element={<Registration />} />
       <Route path='/react-app-trour--frontend/Login' element={<Login />} />
       <Route

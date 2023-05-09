@@ -19,9 +19,9 @@ function App() {
       
     <Routes>
       <Route path='/react-app-trour' element={<Registration />} />
-      <Route path='login' element={<Login />} />
+      <Route path='/react-app-trour/login' element={<Login />} />
       <Route
-        path='panel/*'
+        path='/react-app-trour/panel/*'
         element={<Panel data={data} />} />
       <Route path='*' element={<TextStyle>404 Page Not Found</TextStyle>} />
     </Routes >

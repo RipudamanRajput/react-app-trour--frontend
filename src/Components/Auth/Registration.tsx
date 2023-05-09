@@ -67,7 +67,7 @@ function Registration(props: any | string) {
             })
               .then((value) => {
                 if (value) {
-                  history("/Login")
+                  history("/react-app-trour/Login")
                 }
               })
             )

@@ -1,6 +1,6 @@
 {
   "name": "react-app-trour",
-  "homepage": "https://ripudamanrajput.github.io/react-app-trour--frontend",
+  "homepage": "https://ripudamanrajput.github.io/react-app-trour--frontend/*",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

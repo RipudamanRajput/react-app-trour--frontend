@@ -19,7 +19,7 @@ function App() {
       
     <Routes>
       <Route path='/react-app-trour' element={<Registration />} />
-      <Route path='/react-app-trour/login' element={<Login />} />
+      <Route path='login' element={<Login />} />
       <Route
         path='panel/*'
         element={<Panel data={data} />} />

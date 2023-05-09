@@ -31,7 +31,7 @@ function Login() {
     const { username, password } = logindetail;
     const config = {
       method: "post",
-      url: "http://localhost:3001/signin",
+      url:  `${process.env.REACT_APP_SHOP_NAME}/signin`,
       withCredentials: true,
       data: { username, password },
       headers: {

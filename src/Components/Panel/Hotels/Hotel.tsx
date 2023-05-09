@@ -38,7 +38,7 @@ function Hotels() {
         setLoading(true)
         const config = {
             method: "get",
-            url: "http://localhost:3001/api/gethotels",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/gethotels",
             withCredentials: true,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',

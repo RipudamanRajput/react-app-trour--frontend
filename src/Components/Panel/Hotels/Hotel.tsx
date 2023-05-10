@@ -81,19 +81,19 @@ function Hotels() {
             title: 'Hotel Name',
             dataIndex: 'hotel_name',
             key: 'name',
-            width: 150
+            width: 350
         },
         {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            width: 550
+            width: 350
         },
         {
             title: 'Date',
             dataIndex: "createdAt",
             key: 'createdAt',
-            width: 250
+            width: 450
         },
         {
             title: 'Single',
@@ -135,7 +135,7 @@ function Hotels() {
             title: 'Loaction',
             dataIndex: "location",
             key: 'location',
-            width: 250
+            width: 350
         },
         {
             title: 'Rating',
@@ -146,7 +146,7 @@ function Hotels() {
         {
             title: 'Action',
             key: 'action',
-            width: 250,
+            width: 300,
             render: (_: any, record: any | object) => (
                 <Stack>
                     <Button

@@ -21,6 +21,7 @@ function Panel(props: any) {
     const userinfo = useSelector((state: any) => state.login.username);
     const { username, id } = userinfo;
     const [detail, setdetail] = useState<any>();
+    const [monsidebar, setmobsidebar] = useState<any>(false);
 
     useEffect(() => {
         setdetail({ username, id })
@@ -39,8 +40,12 @@ function Panel(props: any) {
                 (
                     <Frame
                         topBar={<Topbar
+                            setmobsidebar={setmobsidebar}
+                            monsidebar={monsidebar}
                             data={detail} />}
                         logo={logo}
+                        onNavigationDismiss={() => setmobsidebar(!monsidebar)}
+                        showMobileNavigation={monsidebar}
                         navigation={<Sidebar />} >
                         <Routes>
                             <Route

@@ -87,7 +87,7 @@ function Loaction() {
             title: 'Coordinates',
             key: 'coordinates',
             dataIndex: 'coordinates',
-            width: 250,
+            width: 350,
             render: (_: any, record: any | object) => (
                 <Stack vertical spacing="extraTight">
                     <Stack>
@@ -106,12 +106,12 @@ function Loaction() {
             title: 'Date',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            width: 150
+            width: 350
         },
         {
             title: 'Action',
             key: 'action',
-            width: 150,
+            width: 250,
             render: (_: any, record: any | object) => (
                 <Stack>
                     <Button

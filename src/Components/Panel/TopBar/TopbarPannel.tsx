@@ -11,6 +11,7 @@ function TopbarPannel(props: any) {
         <>
             <TopBar
                 showNavigationToggle
+                onNavigationToggle={()=>{props.setmobsidebar(!props.monsidebar)}}
                 userMenu={<TopBar.UserMenu
                     actions={[
                         {

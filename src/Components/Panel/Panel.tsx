@@ -4,11 +4,6 @@ import { useSelector } from "react-redux";
 import { Route, Routes, } from "react-router-dom";
 import SessionExpire from "../Emptystate/Sessionexpire";
 import Dashboard from "./Dashboard/Dashboard";
-import AddnewProduct from "./Product/Components/AddnewProduct";
-import Viewproduct from "./Product/Components/ViewProduct";
-import Product from "./Product/Product";
-import Viewprofile from "./Profile/Components/Viewprofile";
-import Profile from "./Profile/Profile";
 import Sidebar from "./Sidebar/sidebar";
 import Topbar from "./TopBar/TopbarPannel";
 import Loaction from "./Loactions/Loacation";
@@ -35,7 +30,6 @@ function Panel(props: any) {
         width: 124,
         topBarSource:
             'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
-        url: 'http://jadedpixel.com',
         accessibilityLabel: 'Jaded Pixel',
     };
     return (
@@ -52,25 +46,6 @@ function Panel(props: any) {
                             <Route
                                 path='/dashboard'
                                 element={<Dashboard />} />
-                            <Route
-                                path="/Profile"
-                                element={<Profile data={detail} />} />
-                            <Route
-                                path="/Profile/View"
-                                element={<Viewprofile />} />
-                            <Route
-                                path="/Products"
-                                element={<Product data={detail} />} />
-                            <Route
-                                path="/Products/Viewproduct"
-                                element={<Viewproduct />} />
-                            <Route
-                                path="/Products/Add"
-                                element={<AddnewProduct title="Add Product" />} />
-                            <Route
-                                path="/Products/Editproduct"
-                                element={<AddnewProduct title="Edit Product" />} />
-
 
                             <Route path="/Locations"
                                 element={<Loaction />} />

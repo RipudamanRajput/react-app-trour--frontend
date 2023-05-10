@@ -1,4 +1,4 @@
-import { Button, Card, Page, Stack, TextField } from "@shopify/polaris";
+import { Button, Card, Frame, Page, Stack, TextField, Loading } from "@shopify/polaris";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import { AlertPop } from "../../Global/Alert";
 
 function Registration(props: any | string) {
+  const [loading, setloading] = useState<boolean>();
   const history = useNavigate();
   useEffect(() => {
     localStorage.removeItem("Data")
@@ -28,6 +29,7 @@ function Registration(props: any | string) {
   }
 
   const registration = () => {
+    setloading(true);
     const { username, password } = detail;
     const config = {
       method: "post",
@@ -73,8 +75,10 @@ function Registration(props: any | string) {
             )
               :
               AlertPop("Error", 'This password is already used ', "error");
+          setloading(false);
         })
         .catch(err => {
+          setloading(false);
           AlertPop("Error", err.toString(), "error");
         })
     }
@@ -84,48 +88,53 @@ function Registration(props: any | string) {
   }
 
   return (
-    <div className="authenctication">
-      <Page title="Registartion Page">
-        <Card sectioned >
-          <Stack vertical spacing="tight">
-            <TextField
-              onChange={(e, id) => onChangevalue(e, id)}
-              id="username"
-              name="username"
-              autoComplete="off"
-              value={detail.username}
-              type="text"
-              placeholder="Enter First Name"
-              label="First Name"
-            />
-            <TextField
-              onChange={(e, id) => onChangevalue(e, id)}
-              name='password'
-              id="password"
-              autoComplete="off"
-              value={detail.password}
-              type="password"
-              placeholder="Enter your password"
-              label="Password"
-            />
+    <Frame>
+      <div className="authenctication">
+        {loading && <Loading />}
+        <Page title="Registartion Page">
+          <Card sectioned >
+            <Stack vertical spacing="tight">
+              <TextField
+                onChange={(e, id) => onChangevalue(e, id)}
+                id="username"
+                name="username"
+                autoComplete="off"
+                value={detail.username}
+                type="text"
+                placeholder="Enter First Name"
+                label="First Name"
+              />
+              <TextField
+                onChange={(e, id) => onChangevalue(e, id)}
+                name='password'
+                id="password"
+                autoComplete="off"
+                value={detail.password}
+                type="password"
+                placeholder="Enter your password"
+                label="Password"
+              />
 
-            <Stack alignment="fill">
-              <Button
-                fullWidth
-                primary
-                onClick={registration}
-              >Submit</Button>
-              <Button
-                fullWidth
-                onClick={() => {
-                  history('/login')
-                }}>Login</Button>
+              <Stack alignment="fill">
+                <Button
+                  fullWidth
+                  primary
+                  loading={loading}
+                  onClick={registration}
+                >Submit</Button>
+                <Button
+                  disabled={loading}
+                  fullWidth
+                  onClick={() => {
+                    history('/login')
+                  }}>Login</Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </Card>
-      </Page>
+          </Card>
+        </Page>
 
-    </div>
+      </div>
+    </Frame>
   )
 }
 

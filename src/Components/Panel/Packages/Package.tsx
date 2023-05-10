@@ -38,11 +38,13 @@ function Package() {
             setdata(ar)
             setLoading(false)
         }).catch((err) => {
+            setLoading(false)
             AlertPop("Error", err.toString(), "error");
         })
     }, [deleted])
 
     const deletePackage = (record: any) => {
+        setLoading(true)
         const config = {
             method: "delete",
             url: process.env.REACT_APP_SHOP_NAME + "/api/removepackage/" + record.id,
@@ -57,7 +59,9 @@ function Package() {
                 AlertPop("Deleted", res.data.status, "success");
                 setdelet(res.data.status)
             }
+            setLoading(false)
         }).catch((err) => {
+            setLoading(false)
             AlertPop("Error", err.toString(), "error");
         })
     }
@@ -128,11 +132,12 @@ function Package() {
             <Card sectioned>
                 <Stack wrap={false} vertical>
                     <Button
+                        disabled={loading}
                         outline
                         onClick={() => history('addpackage')}>
                         Add Package
                     </Button>
-                    <Table scroll={{ x: 1200 }} loading={loading} columns={columns} dataSource={data} />
+                    <Table scroll={{ x: 1300 }} loading={loading} columns={columns} dataSource={data} />
                 </Stack>
             </Card>
         </Page>

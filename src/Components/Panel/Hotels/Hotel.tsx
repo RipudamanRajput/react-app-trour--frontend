@@ -14,6 +14,7 @@ function Hotels() {
 
 
     const deleteHotel = (record: any) => {
+        setLoading(true);
         const config = {
             method: "delete",
             url: process.env.REACT_APP_SHOP_NAME + "/api/removehotel/" + record.id,
@@ -25,10 +26,11 @@ function Hotels() {
         };
         axios(config).then((res) => {
             if (res.data.status) {
-                AlertPop("Updated", "Sucessfuly deleted", "success");
+                AlertPop("Deleted", "Sucessfuly deleted", "success");
                 setdelet(res.data.status)
 
             }
+            setLoading(false);
         }).catch((err) => {
             AlertPop("Error", err.toString(), "error");
         })
@@ -68,17 +70,6 @@ function Hotels() {
         })
     }, [deleted])
 
-    // const rows = [
-    //     {
-    //         hotel_name: "dadasd",
-    //         description: "fdsfdsfsd dfsdf ds f dsf ds f sdfdsfdsg fgfdsfdsfsd fdsfdsfsdv fdsfdsfsd dsdkjshdhs fdsfdsfsd fdsfdsfsd dfsdf ds f dsf ds f sdfdsfdsg fgfdsfdsfsd fdsfdsfsdv fdsfdsfsd dsdkjshdhs fdsfdsfsd fdsfdsfsd dfsdf ds f dsf ds f sdfdsfdsg fgfdsfdsfsd fdsfdsfsdv fdsfdsfsd dsdkjshdhs fdsfdsfsd",
-    //         single: "--",
-    //         double: "Yes",
-    //         location: "fdsfds",
-    //         rating: 4.5
-
-    //     }
-    // ]
     const columns = [
         {
             title: 'Id',
@@ -178,11 +169,12 @@ function Hotels() {
                 <Card sectioned>
                     <Stack vertical wrap={false}>
                         <Button
+                            disabled={loading}
                             outline
                             onClick={() => history('addhotel')}>
                             Add Hotel
                         </Button>
-                        <Table scroll={{ x: 1400 }} loading={loading} columns={columns} dataSource={data} />
+                        <Table scroll={{ x: 1300 }}  loading={loading} columns={columns} dataSource={data} />
                     </Stack>
                 </Card>
             </Page>

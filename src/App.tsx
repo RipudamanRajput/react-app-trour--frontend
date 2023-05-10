@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '@shopify/polaris/build/esm/styles.css';
 import { TextStyle, } from '@shopify/polaris';
 import Registration from './Components/Auth/Registration'
 import Login from './Components/Auth/Login';
-import { Route, Routes, useNavigate, } from 'react-router-dom';
+import { Route, Routes, } from 'react-router-dom';
 import Panel from './Components/Panel/Panel';
 
 function App() {
   const data = JSON.parse(localStorage.getItem("Data") as string)
- 
-  
     return (
       
     <Routes >

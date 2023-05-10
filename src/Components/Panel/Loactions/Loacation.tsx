@@ -37,11 +37,12 @@ function Loaction() {
             setdata(ar)
             setLoading(false)
         }).catch((err) => {
-            AlertPop("Error", err.toString(), "error");
+            AlertPop("Error", err.toString(), "error"); 
         })
     }, [deleted])
 
     const deleteLocation = (record: any) => {
+        setLoading(true)
         const config = {
             method: "delete",
             url: process.env.REACT_APP_SHOP_NAME + "/api/removeloaction/" + record.id,
@@ -56,7 +57,9 @@ function Loaction() {
                 AlertPop("Deleted", res.data.status, "success");
                 setdelet(res.data.status)
             }
+            setLoading(false)
         }).catch((err) => {
+            setLoading(false)
             AlertPop("Error", err.toString(), "error");
         })
     }
@@ -130,12 +133,13 @@ function Loaction() {
                 <Stack wrap={false} vertical>
                     <Stack>
                         <Button
+                            disabled={loading}
                             onClick={() => history("addlocation")}
                             outline>
                             Add Loaction
                         </Button>
                     </Stack>
-                    <Table loading={loading} columns={columns} dataSource={data} />
+                    <Table scroll={{ x: 1300 }} loading={loading} columns={columns} dataSource={data} />
                 </Stack>
             </Card>
         </Page>

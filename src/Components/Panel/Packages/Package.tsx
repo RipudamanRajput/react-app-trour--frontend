@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop } from "../../../Global/Alert";
+import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
 
 function Package() {
     const history = useNavigate();
@@ -28,11 +29,10 @@ function Package() {
                 ar.push({
                     id: item.id,
                     createdAt: item.createdAt,
-                    package_name: item.package_name,
-                    description: item.description,
-                    hotel: item.hotel,
-                    location: item.location,
-                    cost: item.cost
+                    title: item.title,
+                    package_type: item.package_type,
+                    duration: item.duration,
+                    price: item.price,
                 })
             })
             setdata(ar)
@@ -75,15 +75,15 @@ function Package() {
         },
         {
             title: 'package Name',
-            dataIndex: 'package_name',
-            key: 'name',
+            dataIndex: 'title',
+            key: 'title',
             width: 150
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            width: 650
+            title: 'package Type',
+            dataIndex: 'package_type',
+            key: 'package_type',
+            width: 150
         },
         {
             title: 'Date',
@@ -92,21 +92,15 @@ function Package() {
             width: 250
         },
         {
-            title: 'Loaction',
-            dataIndex: "location",
-            key: 'location',
-            width: 250
-        },
-        {
-            title: 'Hotel',
-            dataIndex: "hotel",
-            key: 'hotel',
+            title: 'Duration',
+            dataIndex: "duration",
+            key: 'duration',
             width: 150
         },
         {
-            title: 'Cost',
-            dataIndex: "cost",
-            key: 'cost',
+            title: 'Price',
+            dataIndex: "price",
+            key: 'price',
             width: 150
         },
         {
@@ -114,13 +108,15 @@ function Package() {
             key: 'action',
             width: 200,
             render: (_: any, record: any | object) => (
-                <Stack>
+                <Stack spacing="extraTight">
                     <Button
                         onClick={() => { history("editpackage", { state: record }) }}
-                        plain>Edit</Button>
-                    <span>|</span>
-                    <Button plain
-                        onClick={() => deletePackage(record)}>Delete</Button>
+                        icon={EditMinor} />
+                    <Button
+                        outline
+                        destructive
+                        icon={DeleteMinor}
+                        onClick={() => deletePackage(record)} />
                 </Stack>
             ),
         },

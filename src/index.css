@@ -177,3 +177,17 @@ span.cross::before {
 .Edit-thumbnail {
   position: relative;
 }
+
+input.type-time {
+  height: 34px;
+  background-color: var(--p-color-bg);
+  border: var(--p-border-width-1) solid var(--p-color-border-input);
+  border-top-color: #898f94;
+  border-radius: var(--p-border-radius-1);
+}
+
+.time-filed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

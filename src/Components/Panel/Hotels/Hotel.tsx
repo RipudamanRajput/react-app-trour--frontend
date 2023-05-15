@@ -4,7 +4,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop } from "../../../Global/Alert";
-import { StatusActiveMajor } from '@shopify/polaris-icons';
+import { StatusActiveMajor, CircleDisabledMajor } from '@shopify/polaris-icons';
+import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
+
 
 function Hotels() {
     const history = useNavigate();
@@ -83,12 +85,12 @@ function Hotels() {
             key: 'name',
             width: 350
         },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            width: 350
-        },
+        // {
+        //     title: 'Description',
+        //     dataIndex: 'description',
+        //     key: 'description',
+        //     width: 350
+        // },
         {
             title: 'Date',
             dataIndex: "createdAt",
@@ -107,8 +109,8 @@ function Hotels() {
                         color="success"
                     /> :
                         <Icon
-                            source={StatusActiveMajor}
-                            color="subdued"
+                            source={CircleDisabledMajor}
+                            color="critical"
                         />}
                 </Stack>
             )
@@ -125,8 +127,8 @@ function Hotels() {
                         color="success"
                     /> :
                         <Icon
-                            source={StatusActiveMajor}
-                            color="subdued"
+                            source={CircleDisabledMajor}
+                            color="critical"
                         />}
                 </Stack>
             )
@@ -148,15 +150,16 @@ function Hotels() {
             key: 'action',
             width: 300,
             render: (_: any, record: any | object) => (
-                <Stack>
+                <Stack spacing="extraTight">
                     <Button
+                        icon={EditMinor}
                         onClick={() => { history("edithotel", { state: record }) }}
-                        plain>Edit</Button>
-                    <span>|</span>
-                    <Button plain
-                        onClick={() => deleteHotel(record)}>
-                        Delete
-                    </Button>
+                    />
+                    <Button
+                        outline
+                        destructive
+                        icon={DeleteMinor}
+                        onClick={() => deleteHotel(record)}/>
                 </Stack>
             ),
         },
@@ -174,7 +177,7 @@ function Hotels() {
                             onClick={() => history('addhotel')}>
                             Add Hotel
                         </Button>
-                        <Table scroll={{ x: 1300 }}  loading={loading} columns={columns} dataSource={data} />
+                        <Table scroll={{ x: 1300 }} loading={loading} columns={columns} dataSource={data} />
                     </Stack>
                 </Card>
             </Page>

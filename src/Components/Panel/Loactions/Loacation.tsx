@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop } from "../../../Global/Alert";
+import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
 
 function Loaction() {
     const history = useNavigate();
@@ -37,7 +38,7 @@ function Loaction() {
             setdata(ar)
             setLoading(false)
         }).catch((err) => {
-            AlertPop("Error", err.toString(), "error"); 
+            AlertPop("Error", err.toString(), "error");
         })
     }, [deleted])
 
@@ -77,12 +78,12 @@ function Loaction() {
             key: 'name',
             width: 150
         },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            width: 550
-        },
+        // {
+        //     title: 'Description',
+        //     dataIndex: 'description',
+        //     key: 'description',
+        //     width: 550
+        // },
         {
             title: 'Coordinates',
             key: 'coordinates',
@@ -113,16 +114,16 @@ function Loaction() {
             key: 'action',
             width: 250,
             render: (_: any, record: any | object) => (
-                <Stack>
+                <Stack spacing="extraTight">
                     <Button
                         onClick={() => { history("editlocation", { state: record }) }}
-                        plain>Edit</Button>
-                    <span>|</span>
+                        icon={EditMinor}
+                    />
                     <Button
-                        plain
-                        onClick={() => deleteLocation(record)}>
-                        Delete
-                    </Button>
+                        outline
+                        destructive
+                        icon={DeleteMinor}
+                        onClick={() => deleteLocation(record)} />
                 </Stack>
             ),
         },

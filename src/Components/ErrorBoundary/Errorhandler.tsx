@@ -1,6 +1,5 @@
-import { Button, Card, Heading, Stack, TextStyle } from "@shopify/polaris";
+import { Card, Heading, Stack, TextStyle } from "@shopify/polaris";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import error from '../../Assets/Images/Error.jpg';
 
 const Errorhandler = (props: any) => {

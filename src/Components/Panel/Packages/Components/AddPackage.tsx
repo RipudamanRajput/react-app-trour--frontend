@@ -1,4 +1,4 @@
-import { AutoSelection, Button, Collapsible, Combobox, FormLayout, Icon, Layout, LegacyCard, LegacyStack, Listbox, Loading, Page, Select, Tag, TextContainer, TextField } from "@shopify/polaris";
+import { AutoSelection, Button, Collapsible, Combobox, FormLayout, Icon, Layout, LegacyCard, LegacyStack, Listbox, Loading, Page, Select, Tag, TextField } from "@shopify/polaris";
 import axios from "axios";
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +22,6 @@ function AddPackage() {
     const [collapse, setcollapse] = useState<any>();
     const [activitycollapse, setactivitycollapse] = useState<any>();
 
-
-
     // -----------------------
 
     const removeincludes = useMemo(
@@ -43,7 +41,7 @@ function AddPackage() {
         let ar: any = [];
         includes.forEach((element: any, index: number) => {
             removeincludes.forEach((item: any, i: number) => {
-                if (element == item.value) {
+                if (element === item.value) {
                     ar.push({
                         include_id: item.value,
                         title: item.label
@@ -81,17 +79,6 @@ function AddPackage() {
         }
         return ar;
     }
-    // const data = {
-    //     package_type: Packagetype,
-    //     duration: Number(duration),
-    //     title: Packagename,
-    //     price: Number(Cost),
-    //     description: description,
-    //     overview: Overview,
-    //     includes: Includestoarray(Includes),
-    //     itineraries: Itinerariestoarray(Itineraries)
-    // }
-    // console.log(data, "Dasdsa")
 
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState(removeincludes);
@@ -192,6 +179,7 @@ function AddPackage() {
             AlertPop("Error", err.toString(), "error");
         })
     }
+
     return (
         <>
             {loading && <Loading />}
@@ -267,7 +255,6 @@ function AddPackage() {
                                     value={Cost}
                                     onChange={(e: any) => { setCost(e) }} />
                             </FormLayout.Group>
-
                             <TextField
                                 label="Loaction Description"
                                 autoComplete="off"
@@ -281,10 +268,10 @@ function AddPackage() {
                                 autoComplete="off"
                                 placeholder="Enter Overview"
                                 value={Overview}
+                                multiline={4}
                                 onChange={(e: any) => { setOverview(e) }} />
                             <>
                                 <LegacyStack vertical spacing="tight">
-
                                     <Combobox
                                         allowMultiple
                                         activator={
@@ -308,7 +295,6 @@ function AddPackage() {
                                     <LegacyStack>{tagsMarkup}</LegacyStack>
                                 </LegacyStack>
                             </>
-
                         </FormLayout>
                     </LegacyCard.Section>
 
@@ -342,13 +328,15 @@ function AddPackage() {
                                             icon={DeleteMinor}
                                             onClick={() => {
                                                 setadddays(
-                                                    adddays.filter(
-                                                        (item: any, id: number) => {
-                                                            if (id !== index) {
-                                                                return (item)
-                                                            }
-                                                        })
+                                                    adddays.splice(1)
                                                 )
+                                                const days = Object.keys(Itineraries).filter((key: any) =>
+                                                    key != index).reduce((obj: any, key) => {
+                                                        obj[key] = Itineraries[key];
+                                                        return obj;
+                                                    }, {}
+                                                    );
+                                                setItineraries(days)
                                             }
                                             }
                                         />
@@ -401,7 +389,6 @@ function AddPackage() {
                                                                     )
                                                                 }
                                                             }]}>
-
                                                             {
                                                                 addactivity[index]?.list.map((item: any, i: number) => {
                                                                     return (
@@ -422,14 +409,6 @@ function AddPackage() {
                                                                                     destructive
                                                                                     icon={DeleteMinor}
                                                                                     onClick={() => {
-                                                                                        // setaddactivity(
-                                                                                        //     addactivity.filter(
-                                                                                        //         (item: any, id: number) => {
-                                                                                        //             if (id !== i) {
-                                                                                        //                 return (item)
-                                                                                        //             }
-                                                                                        //         })
-                                                                                        // )
                                                                                         setaddactivity(
                                                                                             {
                                                                                                 ...addactivity,
@@ -437,6 +416,13 @@ function AddPackage() {
 
                                                                                             }
                                                                                         )
+                                                                                        const Activity = Object.keys(Itineraries?.[index]).filter((key: any) =>
+                                                                                            key != i).reduce((obj: any, key) => {
+                                                                                                obj[key] = Itineraries?.[index][key];
+                                                                                                return obj;
+                                                                                            }, {}
+                                                                                            );
+                                                                                        setItineraries({ ...Itineraries, [index]: { ...Activity } })
                                                                                     }
                                                                                     }
                                                                                 />
@@ -445,8 +431,7 @@ function AddPackage() {
                                                                                 open={activitycollapse === i}
                                                                                 id="basic-collapsible"
                                                                                 transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                                                                                expandOnPrint
-                                                                            >
+                                                                                expandOnPrint>
                                                                                 <div style={{ marginBottom: "16px" }}>
                                                                                     <FormLayout>
                                                                                         <TextField

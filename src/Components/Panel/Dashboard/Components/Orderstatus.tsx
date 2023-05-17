@@ -1,6 +1,6 @@
 
 
-import { Badge, Card, SkeletonThumbnail, Stack, TextStyle } from "@shopify/polaris";
+import { Badge, Card, Stack, TextStyle } from "@shopify/polaris";
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';

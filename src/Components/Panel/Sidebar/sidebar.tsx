@@ -3,7 +3,7 @@ import { HomeMinor, ProductsMinor,LocationsMinor,FinancesMinor,CustomersMinor } 
 import React, { useEffect, useState } from 'react';
 
 function Sidebar() {
-    const [active, setactive] = useState("Dashboard");
+    const [active, setactive] = useState<any>("Dashboard");
 
     const setactivetab = (data: any) => {
         setactive(data);

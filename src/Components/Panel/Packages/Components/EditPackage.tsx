@@ -47,7 +47,7 @@ function EditPackage() {
         let ar: any = [];
         includes.forEach((element: any, index: number) => {
             removeincludes.forEach((item: any, i: number) => {
-                if (element == item.value) {
+                if (element === item.value) {
                     ar.push({
                         include_id: item.value,
                         title: item.label
@@ -86,17 +86,17 @@ function EditPackage() {
         }
         return ar;
     }
-    // const data = {
-    //     package_type: Packagetype,
-    //     duration: Number(duration),
-    //     title: Packagename,
-    //     price: Number(Cost),
-    //     description: description,
-    //     overview: Overview,
-    //     includes: Includestoarray(Includes),
-    //     itineraries: Itinerariestoarray(Itineraries)
-    // }
-    // console.log(data, "Dasdsa")
+    const data = {
+        package_type: Packagetype,
+        duration: Number(duration),
+        title: Packagename,
+        price: Number(Cost),
+        description: description,
+        overview: Overview,
+        includes: Includestoarray(Includes),
+        itineraries: Itinerariestoarray(Itineraries)
+    }
+    console.log(Itineraries, "Dasdsa")
 
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState(removeincludes);
@@ -191,7 +191,6 @@ function EditPackage() {
         setaddactivity(arr);
         setadddays(ar);
         return (data)
-
     }
 
     useEffect(() => {
@@ -343,6 +342,7 @@ function EditPackage() {
                                 autoComplete="off"
                                 placeholder="Enter Overview"
                                 value={Overview}
+                                multiline={4}
                                 onChange={(e: any) => { setOverview(e) }} />
                             <>
                                 <LegacyStack vertical spacing="tight">
@@ -384,7 +384,7 @@ function EditPackage() {
                                 }
                             }
                         ]}>
-                        {adddays?.map((_: any, index: number) => {
+                        {adddays?.map((_: any, index: any) => {
                             return (
                                 <LegacyStack vertical>
                                     <LegacyStack spacing="tight">
@@ -403,24 +403,22 @@ function EditPackage() {
                                             destructive
                                             icon={DeleteMinor}
                                             onClick={() => {
-                                                setadddays(
-                                                    adddays.filter(
-                                                        (item: any, id: number) => {
-                                                            if (id !== index) {
-                                                                return (item)
-                                                            }
-                                                        })
-                                                )
+                                                setadddays(adddays.splice(1))
+                                                const days = Object.keys(Itineraries).filter((key: any) =>
+                                                    key != index).reduce((obj: any, key) => {
+                                                        obj[key] = Itineraries[key];
+                                                        return obj;
+                                                    }, {}
+                                                    );
+                                                setItineraries(days)
                                             }
-                                            }
-                                        />
+                                            }/>
                                     </LegacyStack>
                                     <Collapsible
                                         open={collapse === index}
                                         id="basic-collapsible"
                                         transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                                        expandOnPrint
-                                    >
+                                        expandOnPrint>
                                         <div style={{ marginBottom: "16px" }}>
                                             <LegacyStack vertical wrap={false}>
                                                 <Layout>
@@ -458,7 +456,6 @@ function EditPackage() {
                                                                         {
                                                                             ...addactivity,
                                                                             [index]: addactivity[index]?.length ? { length: addactivity[index]?.length + 1, list: lenthtoarray(addactivity[index]?.length + 1) } : { length: 1, list: lenthtoarray(1) }
-
                                                                         }
                                                                     )
                                                                 }
@@ -491,16 +488,22 @@ function EditPackage() {
 
                                                                                             }
                                                                                         )
+                                                                                        const Activity = Object.keys(Itineraries?.[index]).filter((key: any) =>
+                                                                                            key != i).reduce((obj: any, key) => {
+                                                                                                obj[key] = Itineraries?.[index][key];
+                                                                                                return obj;
+                                                                                            }, {}
+                                                                                            );
+                                                                                        setItineraries({ ...Itineraries, [index]: { ...Activity } })
                                                                                     }
-                                                                                    }
-                                                                                />
+
+                                                                                    }/>
                                                                             </LegacyStack>
                                                                             <Collapsible
                                                                                 open={activitycollapse === i}
                                                                                 id="basic-collapsible"
                                                                                 transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                                                                                expandOnPrint
-                                                                            >
+                                                                                expandOnPrint>
                                                                                 <div style={{ marginBottom: "16px" }}>
                                                                                     <FormLayout>
                                                                                         <TextField
@@ -543,7 +546,6 @@ function EditPackage() {
                                                                                                 <input id="timepick" value={Itineraries[index]?.[i]?.timings} onChange={(e) => { setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], timings: e.target.value } } }) }} className="type-time" type="time" />
                                                                                             </div>
                                                                                         </FormLayout.Group>
-
                                                                                     </FormLayout>
                                                                                 </div>
                                                                             </Collapsible>

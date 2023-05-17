@@ -1,4 +1,4 @@
-import { Card, Select, SkeletonPage, TextStyle } from "@shopify/polaris";
+import { Card, Select, TextStyle } from "@shopify/polaris";
 import React from "react";
 import {
     Chart as ChartJS,

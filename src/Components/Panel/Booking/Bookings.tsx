@@ -1,6 +1,6 @@
 import { Button, Card, Icon, Page, Stack } from "@shopify/polaris";
 import { Table } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { StatusActiveMajor } from '@shopify/polaris-icons';
 

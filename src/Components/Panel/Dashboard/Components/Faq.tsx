@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 function Faq() {
     const [open, setOpen] = useState(-1);
-    const handleToggle = (data: any | number) => data == open ? setOpen(-1) : setOpen(data);
+    const handleToggle = (data: any | number) => data === open ? setOpen(-1) : setOpen(data);
     return (
         <Card
             title="Frequently Asked Question "
@@ -19,14 +19,14 @@ function Faq() {
                                 <Button
                                     fullWidth
                                     ariaControls={`collapse ${index}`}
-                                    ariaExpanded={open == index}
-                                    icon={open == index ? ChevronUpMinor : ChevronDownMinor}
+                                    ariaExpanded={open === index}
+                                    icon={open === index ? ChevronUpMinor : ChevronDownMinor}
                                     onClick={() => handleToggle(index)}
                                     textAlign="left">
                                     How to delete the uploaded products from the TikTok seller center?
                                 </Button>
                                 <Collapsible
-                                    open={open == index}
+                                    open={open === index}
                                     id={`collapse ${index}`}
                                     transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
                                     expandOnPrint>

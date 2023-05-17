@@ -1,5 +1,5 @@
-import { ActionList, Badge, Button, Card, Collapsible, Icon, Layout, Loading, Page, ProgressBar, Select, SkeletonPage, SkeletonThumbnail, Stack, TextStyle } from "@shopify/polaris";
-import React, { useEffect } from "react";
+import { Layout, Page, Stack } from "@shopify/polaris";
+import React from "react";
 import Grosssales from "./Components/Grosssales";
 import Orderstatus from "./Components/Orderstatus";
 import Productstatus from "./Components/Productstatus";
@@ -28,7 +28,7 @@ function Dashboard() {
                     </Layout.Section>
                     <Layout.Section secondary>
                         <OngoingActivities />
-                        <CompletedActivities/>
+                        <CompletedActivities />
                     </Layout.Section>
                 </Layout>
             </Page>

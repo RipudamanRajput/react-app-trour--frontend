@@ -75,7 +75,7 @@ function Edithotel() {
                         <Stack>
                             {images?.map((item: any, index: number) => {
                                 return (
-                                    <div className="Edit-thumbnail">
+                                    <div className="Edit-thumbnail" key={index}>
                                         <span className="cross"></span>
                                         <Thumbnail key={index} size="large" source={item.src} alt={""} />
                                     </div>

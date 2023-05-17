@@ -57,12 +57,12 @@ function AddPackage() {
         const activitiestoarray = (activities: any) => {
             const arr: any = [];
             const { title, description, ...rest } = activities;
-            Object.keys(rest).forEach((item: any, index: number) => {
+            Object.keys(rest).forEach((item: any) => {
                 arr.push(rest[item])
             })
             return arr;
         }
-        Object.keys(itineraries).forEach((element: any, index: number) => {
+        Object.keys(itineraries).forEach((element: any) => {
             ar.push({
                 title: itineraries[element]?.title,
                 description: itineraries[element]?.description,
@@ -169,15 +169,20 @@ function AddPackage() {
                 'Content-Type': 'application/json'
             }
         };
-        axios(config).then((res) => {
-            if (res.data.message) {
-                AlertPop("Added", res.data.message, "success");
-            }
+        if (config.data.package_type && config.data.title && config.data.price && config.data.price && config.data.description && config.data.overview) {
+            axios(config).then((res) => {
+                if (res.data.message) {
+                    AlertPop("Added", res.data.message, "success");
+                }
+                setLoading(false);
+            }).catch((err) => {
+                setLoading(false);
+                AlertPop("Error", err.toString(), "error");
+            })
+        } else {
+            AlertPop("Warning", "Kindly Fill required Fields", "warning");
             setLoading(false);
-        }).catch((err) => {
-            setLoading(false);
-            AlertPop("Error", err.toString(), "error");
-        })
+        }
     }
 
     return (
@@ -260,6 +265,7 @@ function AddPackage() {
                                 autoComplete="off"
                                 placeholder="Enter Loaction Description"
                                 value={description}
+                                requiredIndicator
                                 multiline={4}
                                 onChange={(e: any) => { setdescription(e) }} />
                             <TextField
@@ -310,7 +316,7 @@ function AddPackage() {
                         ]}>
                         {adddays?.map((_: any, index: number) => {
                             return (
-                                <LegacyStack vertical>
+                                <LegacyStack vertical key={index}>
                                     <LegacyStack spacing="tight">
                                         <LegacyStack.Item fill>
                                             <Button
@@ -345,8 +351,7 @@ function AddPackage() {
                                         open={collapse === index}
                                         id="basic-collapsible"
                                         transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                                        expandOnPrint
-                                    >
+                                        expandOnPrint>
                                         <div style={{ marginBottom: "16px" }}>
                                             <LegacyStack vertical wrap={false}>
                                                 <Layout>
@@ -357,14 +362,14 @@ function AddPackage() {
                                                             <TextField
                                                                 label="Title"
                                                                 autoComplete="off"
-                                                                requiredIndicator
+                                                                
                                                                 placeholder="Enter Title"
                                                                 value={Itineraries[index]?.title}
                                                                 onChange={(e: any) => { setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], title: e } }) }} />
                                                             <TextField
                                                                 label="Description"
                                                                 autoComplete="off"
-                                                                requiredIndicator
+                                                                
                                                                 placeholder="Enter Description"
                                                                 value={Itineraries[index]?.description}
                                                                 multiline={4}
@@ -384,7 +389,6 @@ function AddPackage() {
                                                                         {
                                                                             ...addactivity,
                                                                             [index]: addactivity[index]?.length ? { length: addactivity[index]?.length + 1, list: lenthtoarray(addactivity[index]?.length + 1) } : { length: 1, list: lenthtoarray(1) }
-
                                                                         }
                                                                     )
                                                                 }
@@ -392,7 +396,7 @@ function AddPackage() {
                                                             {
                                                                 addactivity[index]?.list.map((item: any, i: number) => {
                                                                     return (
-                                                                        <LegacyStack vertical>
+                                                                        <LegacyStack vertical key={i}>
                                                                             <LegacyStack spacing="tight">
                                                                                 <LegacyStack.Item fill>
                                                                                     <Button
@@ -413,7 +417,6 @@ function AddPackage() {
                                                                                             {
                                                                                                 ...addactivity,
                                                                                                 [index]: addactivity[index]?.length ? { length: addactivity[index]?.length - 1, list: lenthtoarray(addactivity[index]?.length - 1) } : { length: 1, list: lenthtoarray(1) }
-
                                                                                             }
                                                                                         )
                                                                                         const Activity = Object.keys(Itineraries?.[index]).filter((key: any) =>
@@ -437,7 +440,7 @@ function AddPackage() {
                                                                                         <TextField
                                                                                             label="Activity Name"
                                                                                             autoComplete="off"
-                                                                                            requiredIndicator
+                                                                                            
                                                                                             placeholder="Enter Activity Name"
                                                                                             value={
                                                                                                 Itineraries[index]?.[i]?.activitie_name
@@ -448,7 +451,7 @@ function AddPackage() {
                                                                                         <TextField
                                                                                             label="Description"
                                                                                             autoComplete="off"
-                                                                                            requiredIndicator
+                                                                                            
                                                                                             placeholder="Enter Description"
                                                                                             value={
                                                                                                 Itineraries[index]?.[i]?.description
@@ -461,7 +464,7 @@ function AddPackage() {
                                                                                             <TextField
                                                                                                 label="Location"
                                                                                                 autoComplete="off"
-                                                                                                requiredIndicator
+                                                                                                
                                                                                                 placeholder="Enter Location"
                                                                                                 value={
                                                                                                     Itineraries[index]?.[i]?.location

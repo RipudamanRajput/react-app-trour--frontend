@@ -179,7 +179,8 @@ span.cross::before {
 }
 
 input.type-time {
-  height: 34px;
+  height: 36px;
+  overflow: unset;
   background-color: var(--p-color-bg);
   border: var(--p-border-width-1) solid var(--p-color-border-input);
   border-top-color: #898f94;

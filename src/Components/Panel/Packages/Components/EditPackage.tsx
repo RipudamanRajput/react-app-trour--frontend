@@ -386,7 +386,7 @@ function EditPackage() {
                         ]}>
                         {adddays?.map((_: any, index: any) => {
                             return (
-                                <LegacyStack vertical>
+                                <LegacyStack vertical key={index}>
                                     <LegacyStack spacing="tight">
                                         <LegacyStack.Item fill>
                                             <Button
@@ -464,7 +464,7 @@ function EditPackage() {
                                                             {
                                                                 addactivity[index]?.list.map((item: any, i: number) => {
                                                                     return (
-                                                                        <LegacyStack vertical>
+                                                                        <LegacyStack vertical key={i}>
                                                                             <LegacyStack spacing="tight">
                                                                                 <LegacyStack.Item fill>
                                                                                     <Button

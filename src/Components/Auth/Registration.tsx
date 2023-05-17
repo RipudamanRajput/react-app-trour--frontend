@@ -1,9 +1,10 @@
-import { Button, Card, Frame, Page, Stack, TextField, Loading } from "@shopify/polaris";
+import { Button, Card, Frame, Page, Stack, TextField, Loading, FormLayout, Icon } from "@shopify/polaris";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { AlertPop } from "../../Global/Alert";
+import { ViewMinor, HideMinor } from '@shopify/polaris-icons';
 
 function Registration(props: any | string) {
   const [loading, setloading] = useState<boolean>();
@@ -16,9 +17,11 @@ function Registration(props: any | string) {
   const [detail, setdetail] = useState<any>([
     {
       username: "",
-      password: ""
+      password: "",
+      cpassword: ""
     }
   ]);
+  const [hidepass, showpass] = useState<any>();
   const onChangevalue = (e: string | any, id: string | any) => {
     setdetail((prev: any) => {
       return {
@@ -30,18 +33,18 @@ function Registration(props: any | string) {
 
   const registration = () => {
     setloading(true);
-    const { username, password } = detail;
+    const { username, cpassword } = detail;
     const config = {
       method: "post",
       url: process.env.REACT_APP_SHOP_NAME + "/user",
       withCredentials: true,
-      data: { username, password },
+      data: { username, cpassword },
       headers: {
         'Authorization': process.env.REACT_APP_TOKEN || '',
         'Content-Type': 'application/json'
       }
     }
-    if (username && password) {
+    if (username && cpassword) {
       axios(config)
         .then((res) => {
           res.data.message ?
@@ -86,15 +89,16 @@ function Registration(props: any | string) {
       AlertPop("Warning", "Please Fill all Fields", "warning");
     }
   }
-
+  console.log(hidepass, "dasd")
   return (
     <Frame>
       <div className="authenctication">
         {loading && <Loading />}
         <Page title="Registartion Page">
           <Card sectioned >
-            <Stack vertical spacing="tight">
+            <FormLayout>
               <TextField
+                requiredIndicator
                 onChange={(e, id) => onChangevalue(e, id)}
                 id="username"
                 name="username"
@@ -105,17 +109,44 @@ function Registration(props: any | string) {
                 label="First Name"
               />
               <TextField
+                requiredIndicator
+                type={hidepass?.pass ? "text" : "password"}
+
+                suffix={
+                  <Button
+                    plain
+                    icon={hidepass?.pass ? ViewMinor : HideMinor}
+                    onClick={() => { showpass({ ...hidepass, pass: hidepass?.pass ? false : true }) }}
+                  />}
                 onChange={(e, id) => onChangevalue(e, id)}
                 name='password'
                 id="password"
                 autoComplete="off"
                 value={detail.password}
-                type="password"
                 placeholder="Enter your password"
                 label="Password"
               />
+              <TextField
+                onChange={(e, id) => onChangevalue(e, id)}
+                name='cpassword'
+                id="cpassword"
+                autoComplete="off"
+                requiredIndicator
+                value={detail.cpassword}
+                type={hidepass?.cpass ? "text" : "password"}
+                suffix={
+                  <Button
+                    plain
+                    icon={hidepass?.cpass ? ViewMinor : HideMinor}
+                    onClick={() => { showpass({ ...hidepass, cpass: hidepass?.cpass ? false : true }) }}
+                  />}
+                error={
+                  detail?.cpassword && detail?.cpassword !== detail?.password && "Password is not same"}
+                placeholder="Enter your Confirm password"
+                label="Confirm Password"
+              />
 
-              <Stack alignment="fill">
+              <FormLayout.Group>
                 <Button
                   fullWidth
                   primary
@@ -128,8 +159,8 @@ function Registration(props: any | string) {
                   onClick={() => {
                     history('/login')
                   }}>Login</Button>
-              </Stack>
-            </Stack>
+              </FormLayout.Group>
+            </FormLayout>
           </Card>
         </Page>
 

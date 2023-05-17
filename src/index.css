@@ -192,3 +192,25 @@ input.type-time {
   flex-direction: column;
   gap: 4px;
 }
+
+.Polaris-TextField .Polaris-Button--iconOnly {
+  vertical-align: middle;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+body .Polaris-TextField__Input{
+  border-radius:  4px !important;
+  border: 1px solid #a8a7a7;
+}
+
+body .Polaris-TextField__Input--suffixed {
+  border: 1px solid #a8a7a7;
+  border-right: unset;
+  border-radius: 4px 0px 0px 4px !important;
+}

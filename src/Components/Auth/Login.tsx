@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
-import { Button, Card, Page, Stack, TextField, Loading, Frame } from "@shopify/polaris";
+import { Button, Card, Page, Stack, TextField, Loading, Frame, FormLayout } from "@shopify/polaris";
 import { AlertPop } from "../../Global/Alert";
+import { ViewMinor, HideMinor } from '@shopify/polaris-icons';
+
 
 
 function Login() {
@@ -15,7 +17,9 @@ function Login() {
       username: "",
       password: "",
     }
-  ])
+  ]);
+  const [hidepass, showpass] = useState<any>();
+
   const onLoginchange = (e: string | number, id: string | number) => {
     setlogindetail((prev: any) => {
       return {
@@ -92,40 +96,47 @@ function Login() {
           {loading && <Loading />}
           <Page title="Login">
             <Card sectioned subdued>
-              <Stack vertical spacing="tight">
-                <Stack.Item>
-                  <TextField
-                    id="username"
-                    name="username"
-                    autoComplete="off"
-                    label="Username"
-                    value={logindetail.username}
-                    onChange={(value, id) => onLoginchange(value, id)}
-                    type={'text'}
-                    placeholder={'Enter your Username'} />
-                </Stack.Item>
-                <Stack.Item>
-                  <TextField
-                    id="password"
-                    autoComplete="off"
-                    onChange={(value, id) => onLoginchange(value, id)}
-                    value={logindetail.password}
-                    type={'password'}
-                    placeholder="Enter your password"
-                    name="password"
-                    label="password"
-                  />
-                </Stack.Item>
-                <Stack spacing="tight">
-                  <Button primary loading={loading} onClick={Loginuser}>Login</Button>
+              <FormLayout>
+
+
+                <TextField
+                  id="username"
+                  name="username"
+                  autoComplete="off"
+                  label="Username"
+                  value={logindetail.username}
+                  onChange={(value, id) => onLoginchange(value, id)}
+                  type={'text'}
+                  placeholder={'Enter your Username'} />
+
+
+                <TextField
+                  id="password"
+                  autoComplete="off"
+                  onChange={(value, id) => onLoginchange(value, id)}
+                  value={logindetail.password}
+                  type={hidepass?.cpass ? "text" : "password"}
+                  placeholder="Enter your password"
+                  name="password"
+                  suffix={
+                    <Button
+                      plain
+                      icon={hidepass?.cpass ? ViewMinor : HideMinor}
+                      onClick={() => { showpass({ ...hidepass, cpass: hidepass?.cpass ? false : true }) }}
+                    />}
+                  label="password" />
+
+                <FormLayout.Group condensed>
+                  <Button primary fullWidth loading={loading} onClick={Loginuser}>Login</Button>
                   <Button
+                    fullWidth
                     disabled={loading}
                     onClick={() => {
                       history('/');
                     }
                     }>Sign Up</Button>
-                </Stack>
-              </Stack>
+                </FormLayout.Group>
+              </FormLayout>
             </Card>
           </Page>
         </div>

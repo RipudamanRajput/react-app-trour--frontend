@@ -81,7 +81,7 @@ function Login() {
       })
         .catch(err => {
           setloading(false)
-          AlertPop("Error", err.toString(), "error")
+          AlertPop("Error", "invalid username and password", "error")
         })
     } else {
       AlertPop("Warning", "kindly Fill the Fields", "warning")

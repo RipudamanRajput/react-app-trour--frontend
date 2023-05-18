@@ -97,8 +97,6 @@ function Login() {
           <Page title="Login">
             <Card sectioned subdued>
               <FormLayout>
-
-
                 <TextField
                   id="username"
                   name="username"
@@ -108,8 +106,6 @@ function Login() {
                   onChange={(value, id) => onLoginchange(value, id)}
                   type={'text'}
                   placeholder={'Enter your Username'} />
-
-
                 <TextField
                   id="password"
                   autoComplete="off"
@@ -125,7 +121,6 @@ function Login() {
                       onClick={() => { showpass({ ...hidepass, cpass: hidepass?.cpass ? false : true }) }}
                     />}
                   label="password" />
-
                 <FormLayout.Group condensed>
                   <Button primary fullWidth loading={loading} onClick={Loginuser}>Login</Button>
                   <Button

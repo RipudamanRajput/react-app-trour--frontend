@@ -88,9 +88,10 @@ function Registration(props: any | string) {
     }
     else {
       AlertPop("Warning", "Please Fill all Fields", "warning");
+      setloading(false);
     }
   }
-  console.log(hidepass, "dasd")
+
   return (
     <Frame>
       <div className="authenctication">

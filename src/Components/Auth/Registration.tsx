@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { AlertPop } from "../../Global/Alert";
 import { ViewMinor, HideMinor } from '@shopify/polaris-icons';
+import Password from "antd/es/input/Password";
 
 function Registration(props: any | string) {
   const [loading, setloading] = useState<boolean>();
@@ -44,7 +45,7 @@ function Registration(props: any | string) {
         'Content-Type': 'application/json'
       }
     }
-    if (username && cpassword) {
+    if (username && cpassword && Password === cpassword) {
       axios(config)
         .then((res) => {
           res.data.message ?

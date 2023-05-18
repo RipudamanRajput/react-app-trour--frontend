@@ -34,7 +34,7 @@ function Registration(props: any | string) {
 
   const registration = () => {
     setloading(true);
-    const { username, cpassword } = detail;
+    const { username, cpassword, password } = detail;
     const config = {
       method: "post",
       url: process.env.REACT_APP_SHOP_NAME + "/user",
@@ -45,7 +45,7 @@ function Registration(props: any | string) {
         'Content-Type': 'application/json'
       }
     }
-    if (username && cpassword && Password === cpassword) {
+    if (username && cpassword && password === cpassword) {
       axios(config)
         .then((res) => {
           res.data.message ?

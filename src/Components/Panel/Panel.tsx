@@ -83,8 +83,6 @@ function Panel() {
 
                             <Route path="Bookings"
                                 element={<Bookings />} />
-
-
                             <Route
                                 path="*"
                                 element={<TextStyle>404 page not found </TextStyle>} />

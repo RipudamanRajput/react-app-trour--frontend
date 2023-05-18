@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { AppProvider, } from '@shopify/polaris';
 import { Provider } from 'react-redux';
 import Store from './Util/Store';
-import { BrowserRouter, HashRouter, Link as ReactRouterLink } from "react-router-dom";
+import { HashRouter, Link as ReactRouterLink } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import Errorhandler from './Components/ErrorBoundary/Errorhandler';
 
@@ -50,9 +50,9 @@ root.render(
     <React.StrictMode>
       <ErrorBoundary FallbackComponent={Errorhandler}>
         <Provider store={Store}>
-          <BrowserRouter >
+          <HashRouter >
             <App />
-          </BrowserRouter>
+          </HashRouter>
         </Provider>
       </ErrorBoundary>
     </React.StrictMode>

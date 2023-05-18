@@ -38,7 +38,7 @@ function Registration(props: any | string) {
       method: "post",
       url: process.env.REACT_APP_SHOP_NAME + "/user",
       withCredentials: true,
-      data: { username, cpassword },
+      data: { username, password: cpassword },
       headers: {
         'Authorization': process.env.REACT_APP_TOKEN || '',
         'Content-Type': 'application/json'

@@ -3,7 +3,7 @@ import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../Global/Alert";
 import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
 
 function Package() {
@@ -24,6 +24,7 @@ function Package() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             const ar: any = [];
             res.data.data.forEach((item: any) => {
                 ar.push({
@@ -55,6 +56,7 @@ function Package() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             if (res.data.status) {
                 AlertPop("Deleted", res.data.status, "success");
                 setdelet(res.data.status)

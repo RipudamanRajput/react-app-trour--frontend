@@ -2,7 +2,7 @@ import { AutoSelection, Button, Collapsible, Combobox, FormLayout, Icon, Layout,
 import axios from "axios";
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 import { SearchMinor, DeleteMinor } from '@shopify/polaris-icons';
 
 function AddPackage() {
@@ -171,9 +171,11 @@ function AddPackage() {
         };
         if (config.data.package_type && config.data.title && config.data.price && config.data.price && config.data.description && config.data.overview) {
             axios(config).then((res) => {
+                Sessioncheker(res)
                 if (res.data.message) {
                     AlertPop("Added", res.data.message, "success");
                 }
+                
                 setLoading(false);
             }).catch((err) => {
                 setLoading(false);

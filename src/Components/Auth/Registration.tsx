@@ -1,11 +1,10 @@
-import { Button, Card, Frame, Page, Stack, TextField, Loading, FormLayout, Icon } from "@shopify/polaris";
+import { Button, Card, Frame, Page, TextField, Loading, FormLayout } from "@shopify/polaris";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { AlertPop } from "../../Global/Alert";
 import { ViewMinor, HideMinor } from '@shopify/polaris-icons';
-import Password from "antd/es/input/Password";
 
 function Registration(props: any | string) {
   const [loading, setloading] = useState<boolean>();

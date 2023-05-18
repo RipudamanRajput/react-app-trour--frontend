@@ -7,7 +7,6 @@ import { Route, Routes, } from 'react-router-dom';
 import Panel from './Components/Panel/Panel';
 
 function App() {
-  const data = JSON.parse(localStorage.getItem("Data") as string)
     return (
       
     <Routes >
@@ -15,7 +14,7 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route
         path='panel/*'
-        element={<Panel data={data} />} />
+        element={<Panel/>} />
       <Route path='*' element={<TextStyle>404 Page Not Found</TextStyle>} />
     </Routes >
   )

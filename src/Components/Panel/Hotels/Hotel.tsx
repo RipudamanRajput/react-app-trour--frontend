@@ -3,7 +3,7 @@ import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../Global/Alert";
 import { StatusActiveMajor, CircleDisabledMajor } from '@shopify/polaris-icons';
 import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
 
@@ -27,6 +27,7 @@ function Hotels() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             if (res.data.status) {
                 AlertPop("Deleted", "Sucessfuly deleted", "success");
                 setdelet(res.data.status)
@@ -51,6 +52,7 @@ function Hotels() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             const ar: any = [];
             res.data.data.forEach((item: any) => {
                 ar.push({

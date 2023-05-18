@@ -17,11 +17,13 @@ import AddPackage from "./Packages/Components/AddPackage";
 import EditPackage from "./Packages/Components/EditPackage";
 import Bookings from "./Booking/Bookings";
 
-function Panel(props: any) {
+function Panel() {
     const userinfo = useSelector((state: any) => state.login.username);
     const { username, id } = userinfo;
     const [detail, setdetail] = useState<any>();
     const [monsidebar, setmobsidebar] = useState<any>(false);
+
+    const data = JSON.parse(localStorage.getItem("Data") as string)
 
     useEffect(() => {
         setdetail({ username, id })
@@ -35,7 +37,7 @@ function Panel(props: any) {
     };
     return (
 
-        props?.data ?
+        (data ?
             (detail ?
                 (
                     <Frame
@@ -97,11 +99,7 @@ function Panel(props: any) {
                 )
             )
             :
-            <SessionExpire />
-
-
-
-
+            <SessionExpire />)
     )
 }
 

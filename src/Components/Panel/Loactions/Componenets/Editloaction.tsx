@@ -2,7 +2,7 @@ import { Card, Checkbox, FormLayout, Page, TextField, Loading } from "@shopify/p
 import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 
 function Editloaction() {
     const { state } = useLocation();
@@ -37,6 +37,7 @@ function Editloaction() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             if (res.data.status) {
                 AlertPop("Updated", "Sucessfuly Updated", "success");
             }

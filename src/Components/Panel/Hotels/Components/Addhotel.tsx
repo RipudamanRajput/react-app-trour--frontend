@@ -2,7 +2,7 @@ import { Card, DropZone, FormLayout, Page, RadioButton, Stack, TextField, Thumbn
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 
 function Addhotel() {
     const history = useNavigate();
@@ -43,6 +43,7 @@ function Addhotel() {
                 }
             };
             formdata && axios(config).then((res) => {
+                Sessioncheker(res)
                 if (res.data.message) {
                     AlertPop("Added", res.data.message, "success");
                 }

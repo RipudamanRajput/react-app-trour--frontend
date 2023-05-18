@@ -121,6 +121,12 @@ img.Polaris-Avatar--hidden {
   padding: 0 6.5rem;
 }
 
+@media only screen and (max-width: 425px) {
+  .Emptystate {
+    padding: 0 10px;
+  }
+}
+
 .Emptystate>.Polaris-Card {
   width: 100%;
 }
@@ -198,14 +204,14 @@ input.type-time {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.authenctication .Polaris-TextField__Input{
-  border-radius:  4px !important;
+.authenctication .Polaris-TextField__Input {
+  border-radius: 4px !important;
   border: 1px solid #a8a7a7;
 }
 
@@ -214,4 +220,3 @@ input:-webkit-autofill:active{
   border-right: unset;
   border-radius: 4px 0px 0px 4px !important;
 }
-

@@ -2,7 +2,7 @@ import { AutoSelection, Button, Collapsible, Combobox, FormLayout, Icon, Layout,
 import axios from "axios";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 import { SearchMinor, DeleteMinor } from '@shopify/polaris-icons';
 
 
@@ -86,17 +86,6 @@ function EditPackage() {
         }
         return ar;
     }
-    const data = {
-        package_type: Packagetype,
-        duration: Number(duration),
-        title: Packagename,
-        price: Number(Cost),
-        description: description,
-        overview: Overview,
-        includes: Includestoarray(Includes),
-        itineraries: Itinerariestoarray(Itineraries)
-    }
-    console.log(Itineraries, "Dasdsa")
 
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState(removeincludes);
@@ -205,6 +194,7 @@ function EditPackage() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             setpackagename(res.data.data.title);
             setpackagetype(res.data.data.package_type);
             setCost(res.data.data.price)
@@ -243,6 +233,7 @@ function EditPackage() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             if (res.data.status) {
                 AlertPop("Updated", "Sucessfuly Updated", "success");
             }
@@ -412,7 +403,7 @@ function EditPackage() {
                                                     );
                                                 setItineraries(days)
                                             }
-                                            }/>
+                                            } />
                                     </LegacyStack>
                                     <Collapsible
                                         open={collapse === index}
@@ -497,7 +488,7 @@ function EditPackage() {
                                                                                         setItineraries({ ...Itineraries, [index]: { ...Activity } })
                                                                                     }
 
-                                                                                    }/>
+                                                                                    } />
                                                                             </LegacyStack>
                                                                             <Collapsible
                                                                                 open={activitycollapse === i}

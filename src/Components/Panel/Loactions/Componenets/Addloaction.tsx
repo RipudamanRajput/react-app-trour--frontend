@@ -2,7 +2,7 @@ import { Card, Checkbox, FormLayout, Page, TextField, Loading } from "@shopify/p
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertPop } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 
 function Addloaction() {
     const history = useNavigate();
@@ -35,6 +35,7 @@ function Addloaction() {
             }
         };
         axios(config).then((res) => {
+            Sessioncheker(res)
             if (res.data.message) {
                 AlertPop("Added", res.data.message, "success");
             }

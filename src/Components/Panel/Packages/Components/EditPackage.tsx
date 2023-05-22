@@ -643,7 +643,7 @@ function EditPackage() {
                                                                                             }} />
                                                                                         <LegacyStack >
                                                                                             {images?.[index]?.[i] ?
-                                                                                                <Thumbnail key={index} size="large" source={URL.createObjectURL(images?.[index]?.[i][0])} alt={""} />:
+                                                                                                <Thumbnail key={index} size="large" source={URL.createObjectURL(images?.[index]?.[i][0])} alt={""} /> :
                                                                                                 <Thumbnail key={index} size="large" source={Itineraries[index]?.[i]?.images} alt={""} />
                                                                                             }
                                                                                             <DropZone
@@ -666,7 +666,8 @@ function EditPackage() {
                                                                                             }
                                                                                             multiline={4}
                                                                                             onChange={(e: any) => {
-                                                                                                setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], description: e } } })
+                                                                                                setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], description: e } } });
+                                                                                                !images?.[index]?.[i][0] && setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], images: Itineraries[index]?.[i]?.images } } });
                                                                                             }} />
                                                                                         <FormLayout.Group>
                                                                                             <TextField

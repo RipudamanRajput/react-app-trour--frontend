@@ -216,7 +216,7 @@ function EditPackage() {
 
     useEffect(() => {
         if (discounttype == "percentage") {
-            const final: any = Cost * 100 - discountvalue / 100
+            const final: any = Cost * (100 - discountvalue) / 100
             setfinalprice(final)
         } else {
             const final: any = Cost - discountvalue

@@ -6,6 +6,7 @@ import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 import { DeleteMinor } from '@shopify/polaris-icons';
 import CustomizeModal from "./CustomizeModal";
 import IncludesItem from "./IncludesItem";
+import Activitylist from "./Activitylist";
 
 function AddPackage() {
     const history = useNavigate();
@@ -31,7 +32,6 @@ function AddPackage() {
     const [includemodal, setincludemodal] = useState(false);
     const [images, setimages] = useState<any>([]);
 
-    console.log(images, "dasdasd")
 
     const Includestoarray = (includes: any) => {
         let ar: any = [];
@@ -213,7 +213,6 @@ function AddPackage() {
         })
     }, [customizerefresh])
 
-
     const [includelabel, setincludelabel] = useState<any>();
     const [includevalue, setincludevalue] = useState<any>();
     const addincludeitem = () => {
@@ -289,9 +288,6 @@ function AddPackage() {
             AlertPop("Error", err.toString(), "error");
         })
     }, [customizerefresh])
-
-
-
 
     return (
         <>
@@ -508,7 +504,7 @@ function AddPackage() {
                                                                             <div style={{ marginBottom: "16px" }}>
                                                                                 {!Itineraries[index]?.[i]?.activitie_name &&
                                                                                     <Banner status="info">
-                                                                                        Kindly fill the activity Title to delete it.
+                                                                                        Kindly select Activity to delete it.
                                                                                     </Banner>
                                                                                 }
                                                                             </div>
@@ -556,7 +552,17 @@ function AddPackage() {
                                                                                     <div style={{ marginBottom: "16px" }}>
                                                                                         <LegacyStack vertical>
                                                                                             <FormLayout>
-                                                                                                <TextField
+                                                                                                <Activitylist
+                                                                                                    label="Activity Name"
+                                                                                                    placeholder="Select Activity"
+                                                                                                    value={
+                                                                                                        Itineraries[index]?.[i]?.activitie_name
+                                                                                                    }
+                                                                                                    requiredIndicator
+                                                                                                    onChange={(e: any) => {
+                                                                                                        setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } })
+                                                                                                    }} />
+                                                                                                {/* <TextField
                                                                                                     label="Activity Name"
                                                                                                     autoComplete="off"
 
@@ -566,7 +572,7 @@ function AddPackage() {
                                                                                                     }
                                                                                                     onChange={(e: any) => {
                                                                                                         setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } })
-                                                                                                    }} />
+                                                                                                    }} /> */}
                                                                                                 <LegacyStack>
 
                                                                                                     {images?.[index]?.[i] &&

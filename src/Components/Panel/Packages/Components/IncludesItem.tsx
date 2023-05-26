@@ -1,10 +1,10 @@
 import { AutoSelection, Button, Combobox, Icon, LegacyStack, Listbox, Tag } from "@shopify/polaris";
-import { SearchMinor, DeleteMinor } from '@shopify/polaris-icons';
+import { SearchMinor } from '@shopify/polaris-icons';
 import React, { useCallback, useMemo, useState } from "react";
 
 function IncludesItem(props: any) {
-    const { Includes, setIncludes, setincludemodal, includemodal,include_data } = props
-   
+    const { Includes, setIncludes, setincludemodal, includemodal, include_data } = props;
+
     const removeincludes = useMemo(
         () => include_data,
         [include_data],

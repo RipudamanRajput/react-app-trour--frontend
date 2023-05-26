@@ -16,6 +16,10 @@ import Package from "./Packages/Package";
 import AddPackage from "./Packages/Components/AddPackage";
 import EditPackage from "./Packages/Components/EditPackage";
 import Bookings from "./Booking/Bookings";
+import Mediapage from "./Media/Media";
+import Queries from "./Query/Query";
+import Viewquery from "./Query/Viewquery";
+import Event from "./Events/Event";
 
 function Panel() {
     const userinfo = useSelector((state: any) => state.login.username);
@@ -83,6 +87,14 @@ function Panel() {
 
                             <Route path="Bookings"
                                 element={<Bookings />} />
+                            <Route path="Media"
+                                element={<Mediapage />} />
+                            <Route path="Query"
+                                element={<Queries />} />
+                            <Route path="Query/Viewquery"
+                                element={<Viewquery />} />
+                            <Route path="Event"
+                                element={<Event />} />
                             <Route
                                 path="*"
                                 element={<TextStyle>404 page not found </TextStyle>} />

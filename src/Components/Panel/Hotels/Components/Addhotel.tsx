@@ -14,7 +14,6 @@ function Addhotel() {
     const [images, setimages] = useState<File[]>([]);
     const [loading, setLoading] = useState<boolean>();
 
-console.log(images,"Dasda")
     const addhotel = () => {
         if (images.length !== 0) {
             setLoading(true);

@@ -9,7 +9,7 @@ function CustomizeModal(props: any) {
     return (
         <Modal
             open={props.open}
-            title="asdasd"
+            title="Customize"
             onClose={() => props.onClose(!props.open)} >
             <LegacyCard sectioned>
                 <LegacyStack vertical>
@@ -29,7 +29,7 @@ function CustomizeModal(props: any) {
                                     autoComplete="off"
                                     placeholder="Enter Package Name"
                                     value={props.value}
-                                    onChange={(e: any) => { props.setvalue(e) }} />
+                                    onChange={(e: any) => { props.setvalue(e.replace(/ /g, '_')) }} />
                             </LegacyStack.Item>
                             <Button
                                 primary

@@ -1,11 +1,26 @@
-import { AutoSelection, Button, Collapsible, Combobox, DropZone, FormLayout, Icon, Layout, LegacyCard, LegacyStack, Listbox, Loading, Page, RadioButton, Select, Tag, TextField, Thumbnail } from "@shopify/polaris";
+import {
+    Button,
+    Collapsible,
+    DropZone,
+    FormLayout,
+    Layout,
+    LegacyCard,
+    LegacyStack,
+    Loading,
+    Page,
+    RadioButton,
+    Select,
+    TextField,
+    Thumbnail
+} from "@shopify/polaris";
 import axios from "axios";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
-import { SearchMinor, DeleteMinor } from '@shopify/polaris-icons';
+import { DeleteMinor } from '@shopify/polaris-icons';
 import CustomizeModal from "./CustomizeModal";
 import IncludesItem from "./IncludesItem";
+import Activitylist from "./Activitylist";
 
 
 function EditPackage() {
@@ -382,7 +397,6 @@ function EditPackage() {
         !images?.[index]?.[i]?.[0] ? setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], images: Itineraries[index]?.[i]?.images } } }) :
             setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], images: "" } } })
     }
-    // console.log(Itineraries, "===============>ssa")
     return (
         <>
             {loading && <Loading />}
@@ -635,7 +649,19 @@ function EditPackage() {
                                                                                 expandOnPrint>
                                                                                 <div style={{ marginBottom: "16px" }}>
                                                                                     <FormLayout>
-                                                                                        <TextField
+                                                                                        <Activitylist
+                                                                                            label="Activity Name"
+                                                                                            placeholder="Select Activity Name"
+                                                                                            value={
+                                                                                                Itineraries[index]?.[i]?.activitie_name
+                                                                                            }
+                                                                                            requiredIndicator
+                                                                                            onChange={(e: any) => {
+                                                                                                imageupdate(index, i);
+                                                                                                setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } });
+
+                                                                                            }} />
+                                                                                        {/* <TextField
                                                                                             label="Activity Name"
                                                                                             autoComplete="off"
                                                                                             requiredIndicator
@@ -647,7 +673,7 @@ function EditPackage() {
                                                                                                 imageupdate(index, i);
                                                                                                 setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } });
 
-                                                                                            }} />
+                                                                                            }} /> */}
                                                                                         <LegacyStack >
                                                                                             {images?.[index]?.[i] ?
                                                                                                 <Thumbnail key={index} size="large" source={URL.createObjectURL(images?.[index]?.[i][0])} alt={""} /> :

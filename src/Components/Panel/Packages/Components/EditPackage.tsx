@@ -17,10 +17,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
-import { DeleteMinor } from '@shopify/polaris-icons';
 import CustomizeModal from "./CustomizeModal";
 import IncludesItem from "./IncludesItem";
 import Activitylist from "./Activitylist";
+import ConfrimDelete from "./Confirmationdelete";
 
 
 function EditPackage() {
@@ -37,6 +37,11 @@ function EditPackage() {
     const [finalprice, setfinalprice] = useState();
     const [Includes, setIncludes] = useState<string[]>([]);
     const [Itineraries, setItineraries] = useState<any>([]);
+    const [Guide_name, setGuide_name] = useState<string>();
+    const [Guide_Designation, setGuide_Designation] = useState<string>();
+    const [Guide_Description, setGuide_Description] = useState<string>();
+    const [Guide_InstaUrl, setGuide_InstaUrl] = useState<string>();
+    const [Guide_Profilepic, setGuide_Profilepic] = useState<string>();
 
     const [adddays, setadddays] = useState<any>([0]);
     const [addactivity, setaddactivity] = useState<any>({});
@@ -49,8 +54,6 @@ function EditPackage() {
     const [include_data, setinclude_data] = useState<any>([]);
     const [includemodal, setincludemodal] = useState(false)
     const [images, setimages] = useState<any>([]);
-
-
 
 
     // -----------------------   
@@ -90,6 +93,14 @@ function EditPackage() {
         return ar;
     }
 
+    const Guidedetailset = (guide: any) => {
+        setGuide_name(guide.Guide_name)
+        setGuide_Designation(guide.Guide_designation)
+        setGuide_Description(guide.Guide_description)
+        setGuide_InstaUrl(guide.Guide_social)
+        setGuide_Profilepic(guide.Guide_thumbnail)
+    }
+
     function lenthtoarray(length: any) {
         const ar = [];
         for (let i = 0; i < length; i++) {
@@ -97,8 +108,6 @@ function EditPackage() {
         }
         return ar;
     }
-
-
 
     const includesarraytoobject = (inclued: any) => {
         let ar: any = [];
@@ -149,6 +158,8 @@ function EditPackage() {
             setfinalprice(res.data.data.Final_price)
             setIncludes(includesarraytoobject(res.data.data.includes))
             setItineraries(itinerariesarraytoobject(res.data.data.itineraries))
+            Guidedetailset(res.data.data.Guide?.[0])
+
 
             setLoading(false)
         }).catch((err) => {
@@ -160,7 +171,6 @@ function EditPackage() {
     var formdata = new FormData();
     Object.keys(images).forEach((item: any, index: number) => {
         Object.keys(images[item]).forEach((activ: any, i: number) => {
-            // console.log(`image${item}`, images?.[item]?.[activ]?.[0], `${Itineraries?.[item]?.[activ]?.activitie_name}_${activ}`)
             formdata.append('image', images?.[item]?.[activ]?.[0], `${Itineraries?.[item]?.[activ]?.activitie_name}_${activ}`);
         })
     })
@@ -397,6 +407,7 @@ function EditPackage() {
         !images?.[index]?.[i]?.[0] ? setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], images: Itineraries[index]?.[i]?.images } } }) :
             setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], images: "" } } })
     }
+
     return (
         <>
             {loading && <Loading />}
@@ -416,7 +427,8 @@ function EditPackage() {
                             onAction: () => history(-1)
                         }
                     ]}>
-                    <LegacyCard.Section>
+                    <LegacyCard.Section
+                        title="Basic Details">
                         <FormLayout>
                             <FormLayout.Group>
                                 <TextField
@@ -487,21 +499,6 @@ function EditPackage() {
                                     value={finalprice}
                                     onChange={(e: any) => { setfinalprice(e) }} />
                             </FormLayout.Group>
-                            {/* <TextField
-                                label="Loaction Description"
-                                autoComplete="off"
-                                placeholder="Enter Loaction Description"
-                                value={description}
-                                multiline={4}
-                                onChange={(e: any) => { setdescription(e) }} />
-                            <TextField
-                                requiredIndicator
-                                label="Overview"
-                                autoComplete="off"
-                                placeholder="Enter Overview"
-                                value={Overview}
-                                multiline={4}
-                                onChange={(e: any) => { setOverview(e) }} /> */}
                             <>
                                 <LegacyStack vertical spacing="tight">
                                     {include_data.length > 0 && <IncludesItem
@@ -541,10 +538,8 @@ function EditPackage() {
                                                 {`Day ${index + 1}`}
                                             </Button>
                                         </LegacyStack.Item>
-                                        <Button
-                                            outline
-                                            destructive
-                                            icon={DeleteMinor}
+
+                                        <ConfrimDelete
                                             onClick={() => {
                                                 setadddays(adddays.splice(1))
                                                 const days = Object.keys(Itineraries).filter((key: any) =>
@@ -619,10 +614,7 @@ function EditPackage() {
                                                                                         {`Activity ${i + 1}`}
                                                                                     </Button>
                                                                                 </LegacyStack.Item>
-                                                                                <Button
-                                                                                    outline
-                                                                                    destructive
-                                                                                    icon={DeleteMinor}
+                                                                                <ConfrimDelete
                                                                                     onClick={() => {
                                                                                         setaddactivity(
                                                                                             {
@@ -661,19 +653,6 @@ function EditPackage() {
                                                                                                 setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } });
 
                                                                                             }} />
-                                                                                        {/* <TextField
-                                                                                            label="Activity Name"
-                                                                                            autoComplete="off"
-                                                                                            requiredIndicator
-                                                                                            placeholder="Enter Activity Name"
-                                                                                            value={
-                                                                                                Itineraries[index]?.[i]?.activitie_name
-                                                                                            }
-                                                                                            onChange={(e: any) => {
-                                                                                                imageupdate(index, i);
-                                                                                                setItineraries({ ...Itineraries, [index]: { ...Itineraries[index], [i]: { ...Itineraries[index]?.[i], activitie_name: e } } });
-
-                                                                                            }} /> */}
                                                                                         <LegacyStack >
                                                                                             {images?.[index]?.[i] ?
                                                                                                 <Thumbnail key={index} size="large" source={URL.createObjectURL(images?.[index]?.[i][0])} alt={""} /> :
@@ -735,6 +714,55 @@ function EditPackage() {
                                 </LegacyStack>
                             )
                         })}
+                    </LegacyCard.Section>
+
+                    <LegacyCard.Section
+                        title="Tour Guide's">
+                        <FormLayout>
+                            <FormLayout.Group>
+                                <TextField
+                                    requiredIndicator
+                                    label="Guide Name"
+                                    autoComplete="off"
+                                    placeholder="Enter Guide Name"
+                                    value={Guide_name}
+                                    onChange={(e: any) => { setGuide_name(e) }} />
+                                <TextField
+                                    requiredIndicator
+                                    label="Guide Designamtion"
+                                    autoComplete="off"
+                                    placeholder="Enter Designamtion"
+                                    value={Guide_Designation}
+                                    onChange={(e: any) => { setGuide_Designation(e) }} />
+                            </FormLayout.Group>
+                            <FormLayout.Group>
+                                <TextField
+                                    requiredIndicator
+                                    label="Guide Description"
+                                    autoComplete="off"
+                                    placeholder="Enter Description"
+                                    value={Guide_Description}
+                                    onChange={(e: any) => { setGuide_Description(e) }} />
+                                <TextField
+                                    requiredIndicator
+                                    label="Guide Instagram Url"
+                                    autoComplete="off"
+                                    type="url"
+                                    inputMode="url"
+                                    placeholder="Enter Url"
+                                    value={Guide_InstaUrl}
+                                    onChange={(e: any) => { setGuide_InstaUrl(e) }} />
+                            </FormLayout.Group>
+                            <TextField
+                                requiredIndicator
+                                label="Guide Image URl"
+                                autoComplete="off"
+                                type="url"
+                                inputMode="url"
+                                placeholder="Enter Url"
+                                value={Guide_Profilepic}
+                                onChange={(e: any) => { setGuide_Profilepic(e) }} />
+                        </FormLayout>
                     </LegacyCard.Section>
                 </LegacyCard>
                 <CustomizeModal

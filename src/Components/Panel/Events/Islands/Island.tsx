@@ -36,7 +36,10 @@ function Islands(props: any) {
                 })
             })
             setislandsdata(ar)
+            props.setislands(ar)
             setloadings(false);
+            setlabel('');
+            setvalue('');
         }).catch((err) => {
             setloadings(false);
             AlertPop("Error", err.toString(), "error");
@@ -107,6 +110,7 @@ function Islands(props: any) {
                 <LegacyCard.Section>
                     <List
                         header={<TextStyle variation="strong">Islands</TextStyle>}
+                        loading={loading}
                         bordered>
                         {islandsdata.map((item: any, index: number) => {
                             return (
@@ -117,6 +121,7 @@ function Islands(props: any) {
                 </LegacyCard.Section>
             </Layout.AnnotatedSection>
             <CustomizeModal
+                loading={loading}
                 open={open}
                 onClose={setopen}
                 data={islandsdata}

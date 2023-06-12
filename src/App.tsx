@@ -1,5 +1,6 @@
 import React from 'react';
 import '@shopify/polaris/build/esm/styles.css';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { TextStyle, } from '@shopify/polaris';
 import Registration from './Components/Auth/Registration'
 import Login from './Components/Auth/Login';

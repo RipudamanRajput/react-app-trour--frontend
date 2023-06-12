@@ -39,6 +39,7 @@ function Activitylist(props: any) {
     }, [])
     return (
         <Select
+            disabled={loading}
             label={label ? label : undefined}
             placeholder={placeholder}
             value={value}

@@ -4,13 +4,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop, Sessioncheker } from "../../../Global/Alert";
-import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
+import { EditMinor, DeleteMinor, MobileAcceptMajor, CancelMajor } from '@shopify/polaris-icons';
 
 function Package() {
     const history = useNavigate();
     const [data, setdata] = useState();
     const [loading, setLoading] = useState<boolean>();
     const [deleted, setdelet] = useState();
+    const [confirmdelete, setconfirmdelete] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true)
@@ -110,16 +111,31 @@ function Package() {
             key: 'action',
             width: 200,
             render: (_: any, record: any | object) => (
-                <Stack spacing="extraTight">
-                    <Button
-                        onClick={() => { history("editpackage", { state: record }) }}
-                        icon={EditMinor} />
-                    <Button
-                        outline
-                        destructive
-                        icon={DeleteMinor}
-                        onClick={() => deletePackage(record)} />
-                </Stack>
+                <>
+                    {!confirmdelete ?
+                        <Stack spacing="extraTight"> 
+                        <Button
+                            onClick={() => { history("editpackage", { state: record }) }}
+                            icon={EditMinor} />
+                            <Button
+                                outline
+                                destructive
+                                icon={DeleteMinor}
+                                onClick={() => setconfirmdelete(true)} />
+                        </Stack>
+                        :
+                        <Stack spacing="extraTight">
+                            <Button
+                                onClick={() => deletePackage(record)}
+                                icon={MobileAcceptMajor} />
+                            <Button
+                                outline
+                                destructive
+                                onClick={() => { setconfirmdelete(false) }}
+                                icon={CancelMajor} />
+                        </Stack>
+                    }
+                </>
             ),
         },
     ];
@@ -135,7 +151,7 @@ function Package() {
                         onClick={() => history('addpackage')}>
                         Add Package
                     </Button>
-                    <Table scroll={{ x: 1300 }} loading={loading} columns={columns} dataSource={data} />
+                    <Table loading={loading} columns={columns} dataSource={data} />
                 </Stack>
             </Card>
         </Page>

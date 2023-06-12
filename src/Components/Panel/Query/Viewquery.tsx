@@ -54,8 +54,7 @@ function Viewquery() {
                         <Layout.AnnotatedSection
                             id="userDetails"
                             title="Basic Details"
-                            description="Basic Details about the customer "
-                        >
+                            description="Basic Details about the customer ">
                             <LegacyCard sectioned>
                                 <FormLayout>
                                     <FormLayout.Group >
@@ -77,8 +76,6 @@ function Viewquery() {
                                             readOnly
                                             value={data.phone}
                                         />
-
-
                                         <TextField
                                             label="Date"
                                             autoComplete="off"
@@ -148,8 +145,7 @@ function Viewquery() {
                         <Layout.AnnotatedSection
                             id="sportDetails"
                             title="Activity Details"
-                            description="Activity Details by the customer "
-                        >
+                            description="Activity Details by the customer ">
                             <LegacyCard sectioned>
                                 <FormLayout>
                                     <FormLayout.Group >

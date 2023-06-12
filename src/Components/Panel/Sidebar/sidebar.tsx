@@ -1,13 +1,14 @@
 import { Navigation } from '@shopify/polaris';
 import {
     HomeMinor,
-    ProductsMinor,
-    LocationsMinor,
+    // ProductsMinor,
+    // LocationsMinor,
     FinancesMinor,
     CustomersMinor,
     ContentMinor,
     QuestionMarkInverseMinor,
-    InsertDynamicSourceMinor
+    InsertDynamicSourceMinor,
+    TemplateMinor
 } from '@shopify/polaris-icons';
 import React, { useEffect, useState } from 'react';
 
@@ -81,6 +82,13 @@ function Sidebar() {
             icon: InsertDynamicSourceMinor,
             selected: active === "Event",
             onClick: () => setactivetab('Event')
+        },
+        {
+            url: '/panel/Post',
+            label: 'Post',
+            icon: TemplateMinor,
+            selected: active === "Post",
+            onClick: () => setactivetab('Post')
         },
 
     ];

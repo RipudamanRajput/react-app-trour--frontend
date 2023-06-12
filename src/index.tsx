@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -9,9 +9,35 @@ import Store from './Util/Store';
 import { HashRouter, Link as ReactRouterLink } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import Errorhandler from './Components/ErrorBoundary/Errorhandler';
+import ReactDOM from "react-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
+
+
+const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
+
+function Link({ children, url = '', external, ref, ...rest }: any) {
+  if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
+    rest.target = '_blank';
+    rest.rel = 'noopener noreferrer';
+    return (
+      <a href={url} {...rest}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <ReactRouterLink to={url} {...rest}>
+      {children}
+    </ReactRouterLink>
+  );
+}
+
+
+
+// const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+// root.render(
+  ReactDOM.render(
   <AppProvider
     i18n={{
       Polaris: {
@@ -55,27 +81,10 @@ root.render(
           </HashRouter>
         </Provider>
       </ErrorBoundary>
-    </React.StrictMode>
-  </AppProvider >
+    </React.StrictMode>,
+    
+  </AppProvider >,
+    document.getElementById("root")
 );
-reportWebVitals();
+{/* reportWebVitals(); */}
 
-const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
-
-function Link({ children, url = '', external, ref, ...rest }: any) {
-  if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
-    rest.target = '_blank';
-    rest.rel = 'noopener noreferrer';
-    return (
-      <a href={url} {...rest}>
-        {children}
-      </a>
-    );
-  }
-
-  return (
-    <ReactRouterLink to={url} {...rest}>
-      {children}
-    </ReactRouterLink>
-  );
-}

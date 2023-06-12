@@ -10,6 +10,7 @@ function Beaches(props: any) {
     const [open, setopen] = useState<boolean>(false);
     const [label, setlabel] = useState<any>();
     const [value, setvalue] = useState<any>();
+    const [islands, setisland] = useState<any>();
     const [refresh, setrefresh] = useState<any>();
     const [loading, setloadings] = useState(false);
     useEffect(() => {
@@ -35,6 +36,7 @@ function Beaches(props: any) {
                 })
             })
             setisbeachesdata(ar)
+            props.setbeach(ar)
             setloadings(false);
         }).catch((err) => {
             setloadings(false);
@@ -51,7 +53,8 @@ function Beaches(props: any) {
             credentials: 'include',
             data: {
                 label: label,
-                value: value
+                value: value,
+                island: islands
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -62,6 +65,8 @@ function Beaches(props: any) {
             Sessioncheker(res)
             setrefresh(false);
             setloadings(false);
+            setlabel('');
+            setvalue('');
         }).catch((err) => {
             setrefresh(false);
             AlertPop("Error", err.toString(), "error");
@@ -106,6 +111,7 @@ function Beaches(props: any) {
                 <LegacyCard.Section>
                     <List
                         header={<TextStyle variation="strong">Beaches</TextStyle>}
+                        loading={loading}
                         bordered>
                         {isbeachesdata.map((item: any, index: number) => {
                             return (
@@ -116,7 +122,10 @@ function Beaches(props: any) {
                 </LegacyCard.Section>
             </Layout.AnnotatedSection>
             <CustomizeModal
+                setisland={setisland}
+                islands={props.islands}
                 open={open}
+                loading={loading}
                 onClose={setopen}
                 data={isbeachesdata}
                 label={label}

@@ -12,6 +12,7 @@ function Mediamoadl(props: any) {
 
     const deleteimage = (id: any) => {
         setloading(true);
+        props.setrefesh(true)
         const config = {
             method: "delete",
             url: process.env.REACT_APP_SHOP_NAME + "/media/removeimage/" + id,
@@ -28,13 +29,13 @@ function Mediamoadl(props: any) {
             if (!res.data.result) {
                 settoast(res.data.message)
             }
-
+            props.setrefesh(false)
             setmediamodal(!mediamodal)
         }).catch((err) => {
             setloading(false);
+            props.setrefesh(false)
             AlertPop("Error", err.toString(), "error");
             setmediamodal(!mediamodal)
-
         })
     }
     return (
@@ -49,7 +50,7 @@ function Mediamoadl(props: any) {
                     {
                         content: "Delete",
                         destructive: true,
-                        onAction: () => deleteimage("zASas_1.png"),
+                        onAction: () => deleteimage(name),
                         loading: loading
                     }
                 ]}

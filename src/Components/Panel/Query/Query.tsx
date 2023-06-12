@@ -1,4 +1,4 @@
-import { Button, Card, Icon, Loading, Page, Stack } from "@shopify/polaris";
+import { Button, Card, Loading, Page, Stack } from "@shopify/polaris";
 import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";

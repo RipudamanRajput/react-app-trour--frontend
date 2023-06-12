@@ -1,11 +1,29 @@
-import { LegacyCard, LegacyStack, Modal, TextField, Button, Icon } from "@shopify/polaris";
+import { LegacyCard, LegacyStack, Modal, TextField, Button, Select, FormLayout } from "@shopify/polaris";
 import React from "react";
 import {
-    EnterMajor, DeleteMinor
+    EnterMajor
 } from '@shopify/polaris-icons';
 import { Table } from "antd";
+import Confirmdelete from '../../Packages/Components/Confirmationdelete'
 
-function CustomizeModal(props: any) {
+export interface CustomizeModalI {
+    islands?: any
+    setisland?: any
+    beaches?: any
+    setbeach?: any
+    open: boolean
+    onClose: (e: any) => void
+    label?: string
+    setlabel: (e: any) => void
+    value?: string
+    setvalue: (e: any) => void
+    loading?: boolean
+    onAdd: () => void
+    onRemove: (e: any) => void
+    data?: any
+}
+
+function CustomizeModal(props: CustomizeModalI): JSX.Element {
     return (
         <Modal
             open={props.open}
@@ -13,6 +31,28 @@ function CustomizeModal(props: any) {
             onClose={() => props.onClose(!props.open)} >
             <LegacyCard sectioned>
                 <LegacyStack vertical>
+                    <FormLayout>
+                        {props.islands &&
+                            <Select
+                                label="Island"
+                                placeholder="Select Island"
+                                requiredIndicator
+                                onChange={(selected: any, id: any) => props.setisland(selected)}
+                                value={props.islands}
+                                options={props.islands} />
+
+                        }
+                        {props.beaches &&
+                            <Select
+                                label="Beach"
+                                placeholder="Select Beach"
+                                requiredIndicator
+                                onChange={(selected: any, id: any) => props.setbeach(selected)}
+                                value={props.beaches}
+                                options={props.beaches} />
+                        }
+                    </FormLayout>
+
                     <LegacyStack alignment="baseline" distribution="fill" spacing="tight">
                         <TextField
                             requiredIndicator
@@ -32,7 +72,9 @@ function CustomizeModal(props: any) {
                                     onChange={(e: any) => { props.setvalue(e.replace(/ /g, '_')) }} />
                             </LegacyStack.Item>
                             <Button
+                                disabled={props.value && props.label && props.islands && props.beaches ? false : true}
                                 primary
+                                loading={props.loading}
                                 icon={EnterMajor}
                                 onClick={() => { props.onAdd() }} />
                         </LegacyStack>
@@ -58,14 +100,8 @@ function CustomizeModal(props: any) {
                             align: 'center',
                             width: 150,
                             render: (_: any, data: any, index: any) => {
-                                return <Button
-                                    outline
-                                    destructive
-                                    size="micro"
-                                    icon={<Icon
-                                        source={DeleteMinor}
-                                        color="base"
-                                    />}
+                                return <Confirmdelete
+                                    loading={props.loading}
                                     onClick={() => { props.onRemove(data.id) }}
                                 />
                             }

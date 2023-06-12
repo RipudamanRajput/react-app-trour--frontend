@@ -10,6 +10,8 @@ function Sports(props: any) {
     const [open, setopen] = useState<boolean>(false);
     const [label, setlabel] = useState<any>();
     const [value, setvalue] = useState<any>();
+    const [islands, setisland] = useState<any>();
+    const [beach, setbeach] = useState<any>();
     const [refresh, setrefresh] = useState<any>();
 
     const [loading, setloadings] = useState(false);
@@ -52,7 +54,9 @@ function Sports(props: any) {
             credentials: 'include',
             data: {
                 label: label,
-                value: value
+                value: value,
+                island: islands,
+                Beach: beach
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -63,6 +67,8 @@ function Sports(props: any) {
             Sessioncheker(res)
             setrefresh(false);
             setloadings(false);
+            setlabel('');
+            setvalue('');
         }).catch((err) => {
             setrefresh(false);
             AlertPop("Error", err.toString(), "error");
@@ -89,6 +95,8 @@ function Sports(props: any) {
             Sessioncheker(res)
             setrefresh(false);
             setloadings(false);
+            setlabel('');
+            setvalue('');
         }).catch((err) => {
             setrefresh(false);
             AlertPop("Error", err.toString(), "error");
@@ -107,6 +115,7 @@ function Sports(props: any) {
                 <LegacyCard.Section>
                     <List
                         header={<TextStyle variation="strong">Sports</TextStyle>}
+                        loading={loading}
                         bordered>
                         {sportsdata.map((item: any, index: number) => {
                             return (
@@ -117,6 +126,11 @@ function Sports(props: any) {
                 </LegacyCard.Section>
             </Layout.AnnotatedSection>
             <CustomizeModal
+                beaches={props.beach}
+                setbeach={setbeach}
+                islands={props.islands}
+                setisland={setisland}
+                loading={loading}
                 open={open}
                 onClose={setopen}
                 data={sportsdata}

@@ -1,6 +1,5 @@
 import { LegacyCard, Page } from "@shopify/polaris";
-import React, { useState } from "react";
-import { EditorState } from 'draft-js';
+import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import axios from "axios";
 import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
@@ -58,22 +57,14 @@ function Addpost() {
                 }
             }
         }
-        const arr: any = [];
-        function DatatoObject(info: any) {
-            arr.push({
-                type: info.type,
-                mutability: info.mutability,
-                data: enitydata(info.type, info.data)
-            })
-            return arr;
-        }
+      
         const ar: any = [];
         if (data) {
             Object.keys(data)?.forEach((_: any, index: number) => {
                 ar.push({
                     type: data[index].type,
                     mutability: data[index].mutability,
-                    data: DatatoObject(data[index].data)
+                    data: enitydata(data[index].type, data[index].data)
                 })
             });
             return ar;
@@ -86,7 +77,7 @@ function Addpost() {
         blocks: Blocktoobject(editorState?.blocks),
         entityMap: entitymaytoObject(editorState?.entityMap)
     }
-    console.log(data, "=======>")
+    // console.log(data, "=======>")
 
     function Addpost() {
         const config = {

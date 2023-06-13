@@ -37,16 +37,14 @@ function EditPackage() {
     const [finalprice, setfinalprice] = useState();
     const [Includes, setIncludes] = useState<string[]>([]);
     const [Itineraries, setItineraries] = useState<any>([]);
-    const [Guide_name, setGuide_name] = useState<string>();
-    const [Guide_Designation, setGuide_Designation] = useState<string>();
-    const [Guide_Description, setGuide_Description] = useState<string>();
-    const [Guide_InstaUrl, setGuide_InstaUrl] = useState<string>();
-    const [Guide_Profilepic, setGuide_Profilepic] = useState<string>();
+    const [Guidedata, setGuidedata] = useState<any>([]);
 
     const [adddays, setadddays] = useState<any>([0]);
     const [addactivity, setaddactivity] = useState<any>({});
     const [loading, setLoading] = useState<boolean>();
     const [collapse, setcollapse] = useState<any>();
+    const [guidecollapse, setguidecollapse] = useState<any>();
+    const [addguide, setaddguide] = useState<any>([0]);
     const [activitycollapse, setactivitycollapse] = useState<any>();
     const [package_data, setpackage_data] = useState<any>();
     const [producttypeview, setproducttypeview] = useState(false);
@@ -54,7 +52,6 @@ function EditPackage() {
     const [include_data, setinclude_data] = useState<any>([]);
     const [includemodal, setincludemodal] = useState(false)
     const [images, setimages] = useState<any>([]);
-
 
     // -----------------------   
     const Includestoarray = (includes: any) => {
@@ -94,11 +91,20 @@ function EditPackage() {
     }
 
     const Guidedetailset = (guide: any) => {
-        setGuide_name(guide.Guide_name)
-        setGuide_Designation(guide.Guide_designation)
-        setGuide_Description(guide.Guide_description)
-        setGuide_InstaUrl(guide.Guide_social)
-        setGuide_Profilepic(guide.Guide_thumbnail)
+        const ar: any = [];
+        const arr: any = [];
+        guide.forEach((item: any, index: number) => {
+            arr.push(index)
+            ar.push({
+                guide_name: item.Guide_name,
+                guide_designation: item.Guide_designation,
+                guide_description: item.Guide_description,
+                guide_url: item.Guide_social,
+                guide_image: item.Guide_thumbnail,
+            })
+        })
+        setGuidedata({ ...ar })
+        setaddguide(arr)
     }
 
     function lenthtoarray(length: any) {
@@ -158,7 +164,7 @@ function EditPackage() {
             setfinalprice(res.data.data.Final_price)
             setIncludes(includesarraytoobject(res.data.data.includes))
             setItineraries(itinerariesarraytoobject(res.data.data.itineraries))
-            Guidedetailset(res.data.data.Guide?.[0])
+            Guidedetailset(res.data.data.Guide)
 
 
             setLoading(false)
@@ -167,6 +173,20 @@ function EditPackage() {
             AlertPop("Error", err.toString(), "error");
         })
     }, [])
+
+    function Guide(Guidedata: any) {
+        const ar: any = [];
+        Object.keys(Guidedata)?.forEach((_: any, index) => {
+            ar.push({
+                Guide_name: Guidedata?.[index]?.guide_name,
+                Guide_designation: Guidedata?.[index]?.guide_designation,
+                Guide_description: Guidedata?.[index]?.guide_description,
+                Guide_social: Guidedata?.[index]?.guide_url,
+                Guide_thumbnail: Guidedata?.[index]?.guide_image
+            })
+        })
+        return ar;
+    }
 
     var formdata = new FormData();
     Object.keys(images).forEach((item: any, index: number) => {
@@ -184,7 +204,8 @@ function EditPackage() {
             discount_value: Number(discountvalue),
             Final_price: Number(finalprice),
             includes: Includestoarray(Includes),
-            itineraries: Itinerariestoarray(Itineraries)
+            itineraries: Itinerariestoarray(Itineraries),
+            Guide: Guide(Guidedata)
         })
     )
 
@@ -533,7 +554,7 @@ function EditPackage() {
                                                 outline
                                                 fullWidth
                                                 textAlign="left"
-                                                disclosure={collapse ? "up" : "down"}
+                                                disclosure={collapse === index ? "up" : "down"}
                                                 onClick={() => collapse === index ? setcollapse(-1) : setcollapse(index)}>
                                                 {`Day ${index + 1}`}
                                             </Button>
@@ -609,7 +630,7 @@ function EditPackage() {
                                                                                         outline
                                                                                         fullWidth
                                                                                         textAlign="left"
-                                                                                        disclosure={activitycollapse ? "up" : "down"}
+                                                                                        disclosure={activitycollapse === i ? "up" : "down"}
                                                                                         onClick={() => activitycollapse === i ? setactivitycollapse(-1) : setactivitycollapse(i)}>
                                                                                         {`Activity ${i + 1}`}
                                                                                     </Button>
@@ -717,52 +738,97 @@ function EditPackage() {
                     </LegacyCard.Section>
 
                     <LegacyCard.Section
-                        title="Tour Guide's">
-                        <FormLayout>
-                            <FormLayout.Group>
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Name"
-                                    autoComplete="off"
-                                    placeholder="Enter Guide Name"
-                                    value={Guide_name}
-                                    onChange={(e: any) => { setGuide_name(e) }} />
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Designamtion"
-                                    autoComplete="off"
-                                    placeholder="Enter Designamtion"
-                                    value={Guide_Designation}
-                                    onChange={(e: any) => { setGuide_Designation(e) }} />
-                            </FormLayout.Group>
-                            <FormLayout.Group>
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Description"
-                                    autoComplete="off"
-                                    placeholder="Enter Description"
-                                    value={Guide_Description}
-                                    onChange={(e: any) => { setGuide_Description(e) }} />
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Instagram Url"
-                                    autoComplete="off"
-                                    type="url"
-                                    inputMode="url"
-                                    placeholder="Enter Url"
-                                    value={Guide_InstaUrl}
-                                    onChange={(e: any) => { setGuide_InstaUrl(e) }} />
-                            </FormLayout.Group>
-                            <TextField
-                                requiredIndicator
-                                label="Guide Image URl"
-                                autoComplete="off"
-                                type="url"
-                                inputMode="url"
-                                placeholder="Enter Url"
-                                value={Guide_Profilepic}
-                                onChange={(e: any) => { setGuide_Profilepic(e) }} />
-                        </FormLayout>
+                        title="Tour Guide's"
+                        actions={[{
+                            content: "Add Guide",
+                            onAction: () => {
+                                setaddguide([...addguide, (addguide.length - 1) + 1])
+                            }
+                        }]}>
+                        {addguide?.map((_: any, index: number) => {
+                            return (
+                                <LegacyCard.Subsection>
+                                    <LegacyStack vertical spacing="tight">
+                                        <LegacyStack spacing="tight">
+                                            <LegacyStack.Item fill>
+                                                <Button
+                                                    outline
+                                                    fullWidth
+                                                    textAlign="left"
+                                                    onClick={() => { guidecollapse === index ? setguidecollapse(-1) : setguidecollapse(index) }}
+                                                    disclosure={guidecollapse === index ? "up" : "down"}>
+                                                    Guide
+                                                </Button>
+                                            </LegacyStack.Item>
+                                            <ConfrimDelete
+                                                onClick={() => {
+                                                    setaddguide(
+                                                        addguide.splice(1)
+                                                    )
+                                                    const guide = Object.keys(Guidedata).filter((key: any) =>
+                                                        key != index).reduce((obj: any, key) => {
+                                                            obj[key] = Guidedata[key];
+                                                            return obj;
+                                                        }, {}
+                                                        );
+                                                    setGuidedata(guide)
+                                                }} />
+                                        </LegacyStack>
+                                        <Collapsible
+                                            open={guidecollapse == index}
+                                            id="basic-collapsible"
+                                            transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
+                                            expandOnPrint>
+                                            <FormLayout>
+                                                <FormLayout.Group>
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Name"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Guide Name"
+                                                        value={Guidedata?.[index]?.guide_name}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_name: e } }) }} />
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Designamtion"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Designation"
+                                                        value={Guidedata?.[index]?.guide_designation}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_designation: e } }) }} />
+                                                </FormLayout.Group>
+                                                <FormLayout.Group>
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Description"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Description"
+                                                        value={Guidedata?.[index]?.guide_description}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_description: e } }) }} />
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Instagram Url"
+                                                        autoComplete="off"
+                                                        type="url"
+                                                        inputMode="url"
+                                                        placeholder="Enter Url"
+                                                        value={Guidedata?.[index]?.guide_url}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_url: e } }) }} />
+                                                </FormLayout.Group>
+                                                <TextField
+                                                    requiredIndicator
+                                                    label="Guide Image URl"
+                                                    autoComplete="off"
+                                                    type="url"
+                                                    inputMode="url"
+                                                    placeholder="Enter Url"
+                                                    value={Guidedata?.[index]?.guide_image}
+                                                    onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_image: e } }) }} />
+                                            </FormLayout>
+                                        </Collapsible>
+                                    </LegacyStack>
+                                </LegacyCard.Subsection>
+                            )
+                        })}
                     </LegacyCard.Section>
                 </LegacyCard>
                 <CustomizeModal

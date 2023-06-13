@@ -86,7 +86,6 @@ function Editpost() {
             url: process.env.REACT_APP_SHOP_NAME + "/api/getpost/" + id,
             withCredentials: true,
             credentials: 'include',
-            data: data,
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
                 'Content-Type': 'application/json'
@@ -168,10 +167,7 @@ function Editpost() {
         }
     }
 
-    const data = {
-        blocks: Blocktoobject(editorState?.blocks),
-        entityMap: entitymaytoObject(editorState?.entityMap)
-    }
+
 
     function Addpost() {
         const config = {
@@ -179,7 +175,10 @@ function Editpost() {
             url: process.env.REACT_APP_SHOP_NAME + "/api/updatepost/" + id,
             withCredentials: true,
             credentials: 'include',
-            data: data,
+            data: {
+                blocks: Blocktoobject(editorState?.blocks),
+                entityMap: entitymaytoObject(editorState?.entityMap)
+            },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
                 'Content-Type': 'application/json'

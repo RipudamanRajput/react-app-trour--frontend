@@ -19,11 +19,7 @@ function AddPackage() {
     const [finalprice, setfinalprice] = useState();
     const [Includes, setIncludes] = useState<string[]>([]);
     const [Itineraries, setItineraries] = useState<any>([]);
-    const [Guide_name, setGuide_name] = useState<string>();
-    const [Guide_Designation, setGuide_Designation] = useState<string>();
-    const [Guide_Description, setGuide_Description] = useState<string>();
-    const [Guide_InstaUrl, setGuide_InstaUrl] = useState<string>();
-    const [Guide_Profilepic, setGuide_Profilepic] = useState<string>();
+    const [Guidedata, setGuidedata] = useState<any>([]);
 
 
 
@@ -31,6 +27,8 @@ function AddPackage() {
     const [addactivity, setaddactivity] = useState<any>({});
     const [loading, setLoading] = useState<boolean>();
     const [collapse, setcollapse] = useState<any>();
+    const [guidecollapse, setguidecollapse] = useState<any>();
+    const [addguide, setaddguide] = useState<any>([0]);
     const [activitycollapse, setactivitycollapse] = useState<any>();
     const [package_data, setpackage_data] = useState<any>();
     const [producttypeview, setproducttypeview] = useState(false);
@@ -38,7 +36,6 @@ function AddPackage() {
     const [include_data, setinclude_data] = useState<any>([]);
     const [includemodal, setincludemodal] = useState(false);
     const [images, setimages] = useState<any>([]);
-
 
     const Includestoarray = (includes: any) => {
         let ar: any = [];
@@ -83,15 +80,19 @@ function AddPackage() {
         return ar;
     }
 
-    const Guide = [
-        {
-            Guide_name: Guide_name,
-            Guide_designation: Guide_Designation,
-            Guide_description: Guide_Description,
-            Guide_social: Guide_InstaUrl,
-            Guide_thumbnail: Guide_Profilepic
-        }
-    ];
+    function Guide() {
+        const ar: any = [];
+        Object.keys(Guidedata).forEach(item => {
+            ar.push({
+                Guide_name: Guidedata?.[item]?.guide_name,
+                Guide_designation: Guidedata?.[item]?.guide_designation,
+                Guide_description: Guidedata?.[item]?.guide_description,
+                Guide_social: Guidedata?.[item]?.guide_url,
+                Guide_thumbnail: Guidedata?.[item]?.guide_image
+            })
+        })
+        return ar;
+    }
 
     var formdata = new FormData();
     Object.keys(images).forEach((item: any, index: number) => {
@@ -111,7 +112,7 @@ function AddPackage() {
             Final_price: Number(finalprice),
             includes: Includestoarray(Includes),
             itineraries: Itinerariestoarray(Itineraries),
-            Guide: Guide
+            Guide: Guide()
         })
     )
 
@@ -320,13 +321,11 @@ function AddPackage() {
                         loading: loading,
                         onAction: () => addpackage()
                     }}
-                    secondaryFooterActions={[
-                        {
-                            content: "Cancel",
-                            disabled: loading,
-                            onAction: () => history(-1)
-                        }
-                    ]}>
+                    secondaryFooterActions={[{
+                        content: "Cancel",
+                        disabled: loading,
+                        onAction: () => history(-1)
+                    }]}>
                     <LegacyCard.Section
                         title="Basic Details">
                         <FormLayout>
@@ -431,7 +430,7 @@ function AddPackage() {
                                                 outline
                                                 fullWidth
                                                 textAlign="left"
-                                                disclosure={collapse ? "up" : "down"}
+                                                disclosure={collapse === index ? "up" : "down"}
                                                 onClick={() => collapse === index ? setcollapse(-1) : setcollapse(index)}>
                                                 {`Day ${index + 1}`}
                                             </Button>
@@ -514,7 +513,7 @@ function AddPackage() {
                                                                                             outline
                                                                                             fullWidth
                                                                                             textAlign="left"
-                                                                                            disclosure={activitycollapse ? "up" : "down"}
+                                                                                            disclosure={activitycollapse === i ? "up" : "down"}
                                                                                             onClick={() => activitycollapse === i ? setactivitycollapse(-1) : setactivitycollapse(i)}>
                                                                                             {`Activity ${i + 1}`}
                                                                                         </Button>
@@ -623,52 +622,90 @@ function AddPackage() {
                     </LegacyCard.Section>
 
                     <LegacyCard.Section
-                        title="Tour Guide's">
-                        <FormLayout>
-                            <FormLayout.Group>
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Name"
-                                    autoComplete="off"
-                                    placeholder="Enter Guide Name"
-                                    value={Guide_name}
-                                    onChange={(e: any) => { setGuide_name(e) }} />
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Designamtion"
-                                    autoComplete="off"
-                                    placeholder="Enter Designamtion"
-                                    value={Guide_Designation}
-                                    onChange={(e: any) => { setGuide_Designation(e) }} />
-                            </FormLayout.Group>
-                            <FormLayout.Group>
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Description"
-                                    autoComplete="off"
-                                    placeholder="Enter Description"
-                                    value={Guide_Description}
-                                    onChange={(e: any) => { setGuide_Description(e) }} />
-                                <TextField
-                                    requiredIndicator
-                                    label="Guide Instagram Url"
-                                    autoComplete="off"
-                                    type="url"
-                                    inputMode="url"
-                                    placeholder="Enter Url"
-                                    value={Guide_InstaUrl}
-                                    onChange={(e: any) => { setGuide_InstaUrl(e) }} />
-                            </FormLayout.Group>
-                            <TextField
-                                requiredIndicator
-                                label="Guide Image URl"
-                                autoComplete="off"
-                                type="url"
-                                inputMode="url"
-                                placeholder="Enter Url"
-                                value={Guide_Profilepic}
-                                onChange={(e: any) => { setGuide_Profilepic(e) }} />
-                        </FormLayout>
+                        title="Tour Guide's"
+                        actions={[{
+                            content: "Add Guide",
+                            onAction: () => {
+                                setaddguide([...addguide, (addguide.length - 1) + 1])
+                            }
+                        }]}>
+                        {addguide?.map((_: any, index: number) => {
+                            return (
+                                <LegacyCard.Subsection>
+                                    <LegacyStack vertical spacing="tight">
+                                        <LegacyStack spacing="tight">
+                                            <LegacyStack.Item fill>
+                                                <Button
+                                                    outline
+                                                    fullWidth
+                                                    textAlign="left"
+                                                    onClick={() => { guidecollapse === index ? setguidecollapse(-1) : setguidecollapse(index) }}
+                                                    disclosure={guidecollapse === index ? "up" : "down"}>
+                                                    Guide
+                                                </Button>
+                                            </LegacyStack.Item>
+                                            <ConfrimDelete
+                                                onClick={() => {
+                                                    setaddguide(
+                                                        addguide.splice(1)
+                                                    )
+                                                }} />
+                                        </LegacyStack>
+                                        <Collapsible
+                                            open={guidecollapse == index}
+                                            id="basic-collapsible"
+                                            transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
+                                            expandOnPrint>
+                                            <FormLayout>
+                                                <FormLayout.Group>
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Name"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Guide Name"
+                                                        value={Guidedata?.[index]?.guide_name}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_name: e } }) }} />
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Designamtion"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Designation"
+                                                        value={Guidedata?.[index]?.guide_designation}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_designation: e } }) }} />
+                                                </FormLayout.Group>
+                                                <FormLayout.Group>
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Description"
+                                                        autoComplete="off"
+                                                        placeholder="Enter Description"
+                                                        value={Guidedata?.[index]?.guide_description}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_description: e } }) }} />
+                                                    <TextField
+                                                        requiredIndicator
+                                                        label="Guide Instagram Url"
+                                                        autoComplete="off"
+                                                        type="url"
+                                                        inputMode="url"
+                                                        placeholder="Enter Url"
+                                                        value={Guidedata?.[index]?.guide_url}
+                                                        onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_url: e } }) }} />
+                                                </FormLayout.Group>
+                                                <TextField
+                                                    requiredIndicator
+                                                    label="Guide Image URl"
+                                                    autoComplete="off"
+                                                    type="url"
+                                                    inputMode="url"
+                                                    placeholder="Enter Url"
+                                                    value={Guidedata?.[index]?.guide_image}
+                                                    onChange={(e: any) => { setGuidedata({ ...Guidedata, [index]: { ...Guidedata[index], guide_image: e } }) }} />
+                                            </FormLayout>
+                                        </Collapsible>
+                                    </LegacyStack>
+                                </LegacyCard.Subsection>
+                            )
+                        })}
                     </LegacyCard.Section>
                 </LegacyCard>
 
@@ -693,8 +730,7 @@ function AddPackage() {
                     setlabel={setincludelabel}
                     setvalue={setincludevalue}
                     label={includelabel}
-                    value={includevalue}
-                />
+                    value={includevalue} />
             </Page >
         </>
     )

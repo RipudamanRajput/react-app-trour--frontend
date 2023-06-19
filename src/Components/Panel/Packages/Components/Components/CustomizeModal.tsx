@@ -4,7 +4,7 @@ import {
     EnterMajor
 } from '@shopify/polaris-icons';
 import { Table } from "antd";
-import Confirmdelete from '../../Packages/Components/Confirmationdelete'
+import Confirmdelete from './Confirmationdelete'
 
 export interface CustomizeModalI {
     islands?: any
@@ -72,7 +72,7 @@ function CustomizeModal(props: CustomizeModalI): JSX.Element {
                                     onChange={(e: any) => { props.setvalue(e.replace(/ /g, '_')) }} />
                             </LegacyStack.Item>
                             <Button
-                                disabled={props.value && props.label && props.islands && props.beaches ? false : true}
+                                disabled={props.value && props.label ? false : true}
                                 primary
                                 loading={props.loading}
                                 icon={EnterMajor}

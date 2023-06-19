@@ -3,7 +3,7 @@ import { List } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
-import CustomizeModal from "../../Packages/Components/CustomizeModal";
+import CustomizeModal from "../../Packages/Components/Components/CustomizeModal";
 
 function Sports(props: any) {
     const [sportsdata, setsportsdata] = useState<any>([]);

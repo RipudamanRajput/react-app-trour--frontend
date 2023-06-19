@@ -1,17 +1,17 @@
-import { Button, Card, Page, Stack } from "@shopify/polaris";
+import { Button, LegacyCard, LegacyStack, Page } from "@shopify/polaris";
 import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop, Sessioncheker } from "../../../Global/Alert";
-import { EditMinor, DeleteMinor, MobileAcceptMajor, CancelMajor } from '@shopify/polaris-icons';
+import { EditMinor } from '@shopify/polaris-icons';
+import ConfrimDelete from "./Components/Components/Confirmationdelete";
 
 function Package() {
     const history = useNavigate();
     const [data, setdata] = useState();
     const [loading, setLoading] = useState<boolean>();
     const [deleted, setdelet] = useState();
-    const [confirmdelete, setconfirmdelete] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true)
@@ -112,29 +112,14 @@ function Package() {
             width: 200,
             render: (_: any, record: any | object) => (
                 <>
-                    {!confirmdelete ?
-                        <Stack spacing="extraTight"> 
+                    <LegacyStack spacing="extraTight">
                         <Button
                             onClick={() => { history("editpackage", { state: record }) }}
                             icon={EditMinor} />
-                            <Button
-                                outline
-                                destructive
-                                icon={DeleteMinor}
-                                onClick={() => setconfirmdelete(true)} />
-                        </Stack>
-                        :
-                        <Stack spacing="extraTight">
-                            <Button
-                                onClick={() => deletePackage(record)}
-                                icon={MobileAcceptMajor} />
-                            <Button
-                                outline
-                                destructive
-                                onClick={() => { setconfirmdelete(false) }}
-                                icon={CancelMajor} />
-                        </Stack>
-                    }
+                        <ConfrimDelete
+                            onClick={() => { deletePackage(record) }} />
+                    </LegacyStack>
+
                 </>
             ),
         },
@@ -143,8 +128,8 @@ function Package() {
         <Page
             fullWidth
             title="Package">
-            <Card sectioned>
-                <Stack wrap={false} vertical>
+            <LegacyCard sectioned>
+                <LegacyStack wrap={false} vertical>
                     <Button
                         disabled={loading}
                         outline
@@ -152,8 +137,8 @@ function Package() {
                         Add Package
                     </Button>
                     <Table loading={loading} columns={columns} dataSource={data} />
-                </Stack>
-            </Card>
+                </LegacyStack>
+            </LegacyCard>
         </Page>
     )
 }

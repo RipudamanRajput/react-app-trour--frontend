@@ -17,7 +17,7 @@ function ConfrimDelete(props: any) {
                 <LegacyStack spacing="extraTight" distribution="center" alignment="center">
                     <Button
                         loading={props.loading ? props.loading : false}
-                        onClick={() => { props.onClick() }}
+                        onClick={() => { props.onClick(); setconfirmdelete(false) }}
                         icon={MobileAcceptMajor} />
                     <Button
                         outline

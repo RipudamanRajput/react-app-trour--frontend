@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
+import { AlertPop, Sessioncheker } from "../../../../../Global/Alert";
 import { Select } from "@shopify/polaris";
 
 function Activitylist(props: any) {

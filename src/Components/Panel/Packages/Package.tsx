@@ -1,10 +1,11 @@
-import { Button, Card, Page, Stack } from "@shopify/polaris";
+import { Button, LegacyCard, LegacyStack, Page } from "@shopify/polaris";
 import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertPop, Sessioncheker } from "../../../Global/Alert";
-import { EditMinor, DeleteMinor } from '@shopify/polaris-icons';
+import { EditMinor } from '@shopify/polaris-icons';
+import ConfrimDelete from "./Components/Components/Confirmationdelete";
 
 function Package() {
     const history = useNavigate();
@@ -110,16 +111,16 @@ function Package() {
             key: 'action',
             width: 200,
             render: (_: any, record: any | object) => (
-                <Stack spacing="extraTight">
-                    <Button
-                        onClick={() => { history("editpackage", { state: record }) }}
-                        icon={EditMinor} />
-                    <Button
-                        outline
-                        destructive
-                        icon={DeleteMinor}
-                        onClick={() => deletePackage(record)} />
-                </Stack>
+                <>
+                    <LegacyStack spacing="extraTight">
+                        <Button
+                            onClick={() => { history("editpackage", { state: record }) }}
+                            icon={EditMinor} />
+                        <ConfrimDelete
+                            onClick={() => { deletePackage(record) }} />
+                    </LegacyStack>
+
+                </>
             ),
         },
     ];
@@ -127,17 +128,17 @@ function Package() {
         <Page
             fullWidth
             title="Package">
-            <Card sectioned>
-                <Stack wrap={false} vertical>
+            <LegacyCard sectioned>
+                <LegacyStack wrap={false} vertical>
                     <Button
                         disabled={loading}
                         outline
                         onClick={() => history('addpackage')}>
                         Add Package
                     </Button>
-                    <Table scroll={{ x: 1300 }} loading={loading} columns={columns} dataSource={data} />
-                </Stack>
-            </Card>
+                    <Table loading={loading} columns={columns} dataSource={data} />
+                </LegacyStack>
+            </LegacyCard>
         </Page>
     )
 }

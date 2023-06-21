@@ -1,3 +1,5 @@
+
+
 import swal from "sweetalert";
 
 export function AlertPop(title: any, text: any, icon: any) {
@@ -14,3 +16,4 @@ export function Sessioncheker(data: any) {
         window.location.reload()
     }
 }
+

@@ -83,13 +83,13 @@ function Sidebar() {
             selected: active === "Event",
             onClick: () => setactivetab('Event')
         },
-        {
-            url: '/panel/Post',
-            label: 'Post',
-            icon: TemplateMinor,
-            selected: active === "Post",
-            onClick: () => setactivetab('Post')
-        },
+        // {
+        //     url: '/panel/Post',
+        //     label: 'Post',
+        //     icon: TemplateMinor,
+        //     selected: active === "Post",
+        //     onClick: () => setactivetab('Post')
+        // },
 
     ];
     useEffect(() => {

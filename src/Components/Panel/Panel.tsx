@@ -20,9 +20,9 @@ import Mediapage from "./Media/Media";
 import Queries from "./Query/Query";
 import Viewquery from "./Query/Viewquery";
 import Event from "./Events/Event";
-import Post from "./Post/Post";
-import Addpost from "./Post/Components/Addpost";
-import Editpost from "./Post/Components/Editpost";
+// import Post from "./Post/Post";
+// import Addpost from "./Post/Components/Addpost";
+// import Editpost from "./Post/Components/Editpost";
 
 function Panel() {
     const userinfo = useSelector((state: any) => state.login.username);
@@ -98,12 +98,12 @@ function Panel() {
                                 element={<Viewquery />} />
                             <Route path="Event"
                                 element={<Event />} />
-                            <Route path="Post"
+                            {/* <Route path="Post"
                                 element={<Post />} />
                             <Route path="Post/addpost"
                                 element={<Addpost />} />
                             <Route path="Post/editpost"
-                                element={<Editpost />} />
+                                element={<Editpost />} /> */}
                             <Route
                                 path="*"
                                 element={<TextStyle>404 page not found </TextStyle>} />

@@ -42,14 +42,33 @@ function BasicDetail(props: any) {
                         </FormLayout.Group>
                         <TextField
                             requiredIndicator
-                            label="Price"
+                            label="Overview"
                             autoComplete="off"
-                            min={0.0}
-                            type="number"
-                            inputMode="numeric"
-                            placeholder="0.00"
-                            value={props.Cost}
-                            onChange={(e: any) => { props.setCost(e) }} />
+                            inputMode="url"
+                            multiline={4}
+                            placeholder="eg:lorem ipsom"
+                            value={props.Overview}
+                            onChange={(e: any) => { props.setoverview(e) }} />
+                        <FormLayout.Group>
+                            <TextField
+                                requiredIndicator
+                                label="Package Image"
+                                autoComplete="off"
+                                inputMode="url"
+                                placeholder="eg:https//abc/images/da6d65sa4d.jpg"
+                                value={props.Packageimg}
+                                onChange={(e: any) => { props.setpackageimg(e) }} />
+                            <TextField
+                                requiredIndicator
+                                label="Price"
+                                autoComplete="off"
+                                min={0.0}
+                                type="number"
+                                inputMode="numeric"
+                                placeholder="0.00"
+                                value={props.Cost}
+                                onChange={(e: any) => { props.setCost(e) }} />
+                        </FormLayout.Group>
                         <FormLayout.Group>
 
                             <LegacyStack vertical spacing="none">

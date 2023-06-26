@@ -17,6 +17,8 @@ function EditPackage() {
     const [Packagename, setpackagename] = useState();
     const [Packagetype, setpackagetype] = useState<any>(null);
     const [duration, setduration] = useState();
+    const [Overview, setoverview] = useState();
+    const [Packageimg, setpackageimg]=useState<string>();
     const [Cost, setCost] = useState<any>();
     const [discounttype, setdiscounttype] = useState<any>();
     const [discountvalue, setdiscountvalue] = useState<any>();
@@ -116,6 +118,8 @@ function EditPackage() {
             Sessioncheker(res)
             setpackagename(res.data.data.title);
             setpackagetype(res.data.data.package_type);
+            setpackageimg(res.data.data.packageimg)
+            setoverview(res.data.data.overview)
             setCost(res.data.data.price)
             setduration(res.data.data.duration)
             setdiscounttype(res.data.data.discount_type)
@@ -173,6 +177,8 @@ function EditPackage() {
             package_type: Packagetype,
             duration: Number(duration),
             title: Packagename,
+            overview:Overview,
+            packageimg:Packageimg,
             price: Number(Cost),
             discount_type: discounttype,
             discount_value: Number(discountvalue),
@@ -403,6 +409,10 @@ function EditPackage() {
                         package_data={package_data}
                         duration={duration}
                         setduration={setduration}
+                        Overview={Overview}
+                        setoverview={setoverview}
+                        Packageimg={Packageimg}
+                        setpackageimg={setpackageimg}
                         Cost={Cost}
                         setCost={setCost}
                         setdiscounttype={setdiscounttype}

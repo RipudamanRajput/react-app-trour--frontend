@@ -9,6 +9,8 @@ import Confirmdelete from './Confirmationdelete'
 export interface CustomizeModalI {
     islands?: any
     setisland?: any
+    islandsOptions?:any
+    isbeachesOptions?:any
     beaches?: any
     setbeach?: any
     open: boolean
@@ -32,24 +34,24 @@ function CustomizeModal(props: CustomizeModalI): JSX.Element {
             <LegacyCard sectioned>
                 <LegacyStack vertical>
                     <FormLayout>
-                        {props.islands &&
+                        {props.islandsOptions &&
                             <Select
                                 label="Island"
                                 placeholder="Select Island"
                                 requiredIndicator
                                 onChange={(selected: any, id: any) => props.setisland(selected)}
                                 value={props.islands}
-                                options={props.islands} />
+                                options={props.islandsOptions} />
 
                         }
-                        {props.beaches &&
+                        {props.isbeachesOptions &&
                             <Select
                                 label="Beach"
                                 placeholder="Select Beach"
                                 requiredIndicator
                                 onChange={(selected: any, id: any) => props.setbeach(selected)}
                                 value={props.beaches}
-                                options={props.beaches} />
+                                options={props.isbeachesOptions} />
                         }
                     </FormLayout>
 

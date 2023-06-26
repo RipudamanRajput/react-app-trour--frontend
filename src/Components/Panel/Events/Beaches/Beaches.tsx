@@ -10,7 +10,7 @@ function Beaches(props: any) {
     const [open, setopen] = useState<boolean>(false);
     const [label, setlabel] = useState<any>();
     const [value, setvalue] = useState<any>();
-    const [islands, setisland] = useState<any>();
+    const [Islands, setIsland] = useState();
     const [refresh, setrefresh] = useState<any>();
     const [loading, setloadings] = useState(false);
     useEffect(() => {
@@ -29,11 +29,21 @@ function Beaches(props: any) {
             Sessioncheker(res)
             const ar: any = [];
             res.data.forEach((item: any) => {
-                ar.push({
-                    id: item.id,
-                    label: item.label,
-                    value: item.value,
-                })
+                Islands ?
+                    Islands === item.island &&
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        island: item.island
+                    })
+                    :
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        island: item.island
+                    })
             })
             setisbeachesdata(ar)
             props.setbeach(ar)
@@ -42,7 +52,7 @@ function Beaches(props: any) {
             setloadings(false);
             AlertPop("Error", err.toString(), "error");
         })
-    }, [refresh])
+    }, [refresh, Islands])
 
     function addsport() {
         setrefresh(true);
@@ -54,7 +64,7 @@ function Beaches(props: any) {
             data: {
                 label: label,
                 value: value,
-                island: islands
+                island: Islands
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -122,8 +132,9 @@ function Beaches(props: any) {
                 </LegacyCard.Section>
             </Layout.AnnotatedSection>
             <CustomizeModal
-                setisland={setisland}
-                islands={props.islands}
+                setisland={setIsland}
+                islands={Islands}
+                islandsOptions={props.islands}
                 open={open}
                 loading={loading}
                 onClose={setopen}

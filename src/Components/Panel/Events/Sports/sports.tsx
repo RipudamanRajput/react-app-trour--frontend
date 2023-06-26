@@ -6,15 +6,57 @@ import { AlertPop, Sessioncheker } from "../../../../Global/Alert";
 import CustomizeModal from "../../Packages/Components/Components/CustomizeModal";
 
 function Sports(props: any) {
+    const [isbeachesdata, setisbeachesdata] = useState<any>([]);
     const [sportsdata, setsportsdata] = useState<any>([]);
     const [open, setopen] = useState<boolean>(false);
     const [label, setlabel] = useState<any>();
     const [value, setvalue] = useState<any>();
-    const [islands, setisland] = useState<any>();
+    const [Islands, setIsland] = useState<any>();
     const [beach, setbeach] = useState<any>();
     const [refresh, setrefresh] = useState<any>();
 
     const [loading, setloadings] = useState(false);
+
+    useEffect(() => {
+        setloadings(true);
+        const sports = {
+            method: "get",
+            url: process.env.REACT_APP_SHOP_NAME + "/api/getbeaches",
+            withCredentials: true,
+            credentials: 'include',
+            headers: {
+                'Authorization': process.env.REACT_APP_TOKEN || '',
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(sports).then((res) => {
+            Sessioncheker(res)
+            const ar: any = [];
+            res.data.forEach((item: any) => {
+                Islands ?
+                    Islands === item.island &&
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        island: item.island
+                    })
+                    :
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        island: item.island
+                    })
+            })
+            setisbeachesdata(ar)
+            setloadings(false);
+        }).catch((err) => {
+            setloadings(false);
+            AlertPop("Error", err.toString(), "error");
+        })
+    }, [refresh, Islands])
+
     useEffect(() => {
         setloadings(true);
         const sports = {
@@ -31,11 +73,24 @@ function Sports(props: any) {
             Sessioncheker(res)
             const ar: any = [];
             res.data.forEach((item: any) => {
-                ar.push({
-                    id: item.id,
-                    label: item.label,
-                    value: item.value,
-                })
+                beach ?
+                beach === item.Beach &&
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        Beach: item.Beach,
+                        island: item.island
+                    })
+                    :
+                    ar.push({
+                        id: item.id,
+                        label: item.label,
+                        value: item.value,
+                        Beach: item.Beach,
+                        island: item.island
+                    })
+
             })
             setsportsdata(ar)
             setloadings(false);
@@ -43,7 +98,7 @@ function Sports(props: any) {
             setloadings(false);
             AlertPop("Error", err.toString(), "error");
         })
-    }, [refresh])
+    }, [refresh,beach,Islands])
 
     function addsport() {
         setrefresh(true);
@@ -55,7 +110,7 @@ function Sports(props: any) {
             data: {
                 label: label,
                 value: value,
-                island: islands,
+                island: Islands,
                 Beach: beach
             },
             headers: {
@@ -126,10 +181,12 @@ function Sports(props: any) {
                 </LegacyCard.Section>
             </Layout.AnnotatedSection>
             <CustomizeModal
-                beaches={props.beach}
+                beaches={beach}
                 setbeach={setbeach}
-                islands={props.islands}
-                setisland={setisland}
+                islands={Islands}
+                setisland={setIsland}
+                islandsOptions={props.islands}
+                isbeachesOptions={isbeachesdata}
                 loading={loading}
                 open={open}
                 onClose={setopen}

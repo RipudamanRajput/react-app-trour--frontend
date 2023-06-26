@@ -13,6 +13,8 @@ function AddPackage() {
     const [Packagename, setpackagename] = useState();
     const [Packagetype, setpackagetype] = useState<any>(null);
     const [duration, setduration] = useState();
+    const [Overview, setoverview] = useState();
+    const [Packageimg, setpackageimg] = useState<string>();
     const [Cost, setCost] = useState<any>();
     const [discounttype, setdiscounttype] = useState<any>();
     const [discountvalue, setdiscountvalue] = useState<any>();
@@ -78,6 +80,8 @@ function AddPackage() {
             package_type: Packagetype,
             duration: Number(duration),
             title: Packagename,
+            overview:Overview,
+            packageimg: Packageimg,
             price: Number(Cost),
             discount_type: discounttype,
             discount_value: Number(discountvalue),
@@ -285,6 +289,10 @@ function AddPackage() {
                         package_data={package_data}
                         duration={duration}
                         setduration={setduration}
+                        Packageimg={Packageimg}
+                        Overview={Overview}
+                        setoverview={setoverview}
+                        setpackageimg={setpackageimg}
                         Cost={Cost}
                         setCost={setCost}
                         setdiscounttype={setdiscounttype}

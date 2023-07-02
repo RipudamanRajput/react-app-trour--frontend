@@ -7,10 +7,12 @@ import { Table } from "antd";
 import Confirmdelete from './Confirmationdelete'
 
 export interface CustomizeModalI {
+    setinludeimg?: any
+    indludeimg?:any,
     islands?: any
     setisland?: any
-    islandsOptions?:any
-    isbeachesOptions?:any
+    islandsOptions?: any
+    isbeachesOptions?: any
     beaches?: any
     setbeach?: any
     open: boolean
@@ -55,24 +57,41 @@ function CustomizeModal(props: CustomizeModalI): JSX.Element {
                         }
                     </FormLayout>
 
-                    <LegacyStack alignment="baseline" distribution="fill" spacing="tight">
+                    <LegacyStack alignment="trailing" distribution="fill" spacing="tight">
                         <TextField
                             requiredIndicator
                             label="Enter Label"
                             autoComplete="off"
                             placeholder="Enter Package Name"
                             value={props.label}
-                            onChange={(e: any) => { props.setlabel(e) }} />
-                        <LegacyStack wrap={false} alignment="trailing" spacing="tight">
-                            <LegacyStack.Item fill>
-                                <TextField
+                            onChange={(e: any) => {
+                                props.setlabel(e)
+                                props.setvalue && props.setvalue(e.replace(/ /g, '_'))
+                            }} />
+                            
+                        {/* <LegacyStack wrap={false} alignment="baseline"  spacing="tight">
+                            <LegacyStack.Item fill> */}
+                                {props.setinludeimg && <TextField
                                     requiredIndicator
-                                    label="Enter value"
+                                    label="Enter Image Url"
                                     autoComplete="off"
-                                    placeholder="Enter Package Name"
-                                    value={props.value}
-                                    onChange={(e: any) => { props.setvalue(e.replace(/ /g, '_')) }} />
-                            </LegacyStack.Item>
+                                    placeholder="Enter Image Url"
+                                    value={props.indludeimg}
+                                    onChange={(e: any) => {
+                                        props.setinludeimg(e)
+                                    }} />
+                                    // :
+                                    // <TextField
+                                    //     requiredIndicator
+                                    //     label="Enter Image Url"
+                                    //     autoComplete="off"
+                                    //     placeholder="Enter Image Url"
+                                    //     value={props.value}
+                                    //     onChange={(e: any) => {
+                                    //         props.setvalue(e)
+                                    //     }} />
+                                }
+                            {/* </LegacyStack.Item> */}
                             <Button
                                 disabled={props.value && props.label ? false : true}
                                 primary
@@ -80,7 +99,7 @@ function CustomizeModal(props: CustomizeModalI): JSX.Element {
                                 icon={EnterMajor}
                                 onClick={() => { props.onAdd() }} />
                         </LegacyStack>
-                    </LegacyStack>
+                    {/* </LegacyStack> */}
                     <Table columns={[
                         {
                             title: 'Label',

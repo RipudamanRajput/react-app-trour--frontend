@@ -14,6 +14,7 @@ function AddPackage() {
     const [Packagetype, setpackagetype] = useState<any>(null);
     const [duration, setduration] = useState();
     const [Overview, setoverview] = useState();
+    const [description, setdescription] = useState();
     const [Packageimg, setpackageimg] = useState<string>();
     const [Cost, setCost] = useState<any>();
     const [discounttype, setdiscounttype] = useState<any>();
@@ -38,6 +39,7 @@ function AddPackage() {
     const [customizerefresh, setcustomizerefresh] = useState(false);
     const [include_data, setinclude_data] = useState<any>([]);
     const [includemodal, setincludemodal] = useState(false);
+    const [indludeimg, setinludeimg] = useState();
     const [images, setimages] = useState<any>([]);
 
     function Guide() {
@@ -80,7 +82,8 @@ function AddPackage() {
             package_type: Packagetype,
             duration: Number(duration),
             title: Packagename,
-            overview:Overview,
+            overview: Overview,
+            description: description,
             packageimg: Packageimg,
             price: Number(Cost),
             discount_type: discounttype,
@@ -219,7 +222,8 @@ function AddPackage() {
             withCredentials: true,
             data: {
                 title: includelabel,
-                include_id: includevalue
+                include_id: includevalue,
+                image: indludeimg
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -290,6 +294,8 @@ function AddPackage() {
                         duration={duration}
                         setduration={setduration}
                         Packageimg={Packageimg}
+                        description={description}
+                        setdescription={setdescription}
                         Overview={Overview}
                         setoverview={setoverview}
                         setpackageimg={setpackageimg}
@@ -360,7 +366,9 @@ function AddPackage() {
                     setlabel={setincludelabel}
                     setvalue={setincludevalue}
                     label={includelabel}
-                    value={includevalue} />
+                    value={includevalue}
+                    setinludeimg={setinludeimg}
+                    indludeimg={indludeimg} />
             </Page >
         </>
     )

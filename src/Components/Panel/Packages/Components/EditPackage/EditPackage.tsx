@@ -18,7 +18,8 @@ function EditPackage() {
     const [Packagetype, setpackagetype] = useState<any>(null);
     const [duration, setduration] = useState();
     const [Overview, setoverview] = useState();
-    const [Packageimg, setpackageimg]=useState<string>();
+    const [description, setdescription] = useState();
+    const [Packageimg, setpackageimg] = useState<string>();
     const [Cost, setCost] = useState<any>();
     const [discounttype, setdiscounttype] = useState<any>();
     const [discountvalue, setdiscountvalue] = useState<any>();
@@ -42,6 +43,7 @@ function EditPackage() {
     const [customizerefresh, setcustomizerefresh] = useState(false);
     const [include_data, setinclude_data] = useState<any>([]);
     const [includemodal, setincludemodal] = useState(false)
+    const [indludeimg, setinludeimg] = useState();
     const [images, setimages] = useState<any>([]);
 
     const Guidedetailset = (guide: any) => {
@@ -119,6 +121,7 @@ function EditPackage() {
             setpackagename(res.data.data.title);
             setpackagetype(res.data.data.package_type);
             setpackageimg(res.data.data.packageimg)
+            setdescription(res.data.data.description)
             setoverview(res.data.data.overview)
             setCost(res.data.data.price)
             setduration(res.data.data.duration)
@@ -177,8 +180,9 @@ function EditPackage() {
             package_type: Packagetype,
             duration: Number(duration),
             title: Packagename,
-            overview:Overview,
-            packageimg:Packageimg,
+            overview: Overview,
+            description:description,
+            packageimg: Packageimg,
             price: Number(Cost),
             discount_type: discounttype,
             discount_value: Number(discountvalue),
@@ -339,7 +343,8 @@ function EditPackage() {
             withCredentials: true,
             data: {
                 title: includelabel,
-                include_id: includevalue
+                include_id: includevalue,
+                image:indludeimg
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -409,6 +414,8 @@ function EditPackage() {
                         package_data={package_data}
                         duration={duration}
                         setduration={setduration}
+                        description={description}
+                        setdescription={setdescription}
                         Overview={Overview}
                         setoverview={setoverview}
                         Packageimg={Packageimg}
@@ -478,7 +485,9 @@ function EditPackage() {
                     setlabel={setincludelabel}
                     setvalue={setincludevalue}
                     label={includelabel}
-                    value={includevalue} />
+                    value={includevalue}
+                    setinludeimg={setinludeimg}
+                    indludeimg={indludeimg} />
             </Page >
         </>
     )

@@ -45,10 +45,19 @@ function BasicDetail(props: any) {
                             label="Overview"
                             autoComplete="off"
                             inputMode="url"
-                            multiline={4}
+                            multiline={2}
                             placeholder="eg:lorem ipsom"
                             value={props.Overview}
                             onChange={(e: any) => { props.setoverview(e) }} />
+                        <TextField
+                            requiredIndicator
+                            label="Description"
+                            autoComplete="off"
+                            inputMode="url"
+                            multiline={4}
+                            placeholder="eg:lorem ipsom"
+                            value={props.description}
+                            onChange={(e: any) => { props.setdescription(e) }} />
                         <FormLayout.Group>
                             <TextField
                                 requiredIndicator

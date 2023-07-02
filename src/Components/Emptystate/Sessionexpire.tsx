@@ -1,4 +1,4 @@
-import { Button, Card, Heading, Stack, TextStyle } from "@shopify/polaris";
+import { Banner, Button, Card, Heading, Stack, TextStyle } from "@shopify/polaris";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -58,13 +58,12 @@ function Sessionexpire() {
                             vertical
                             alignment="center"
                             spacing="loose">
-                            <>
-                                <Heading>Session Expired</Heading>
-                                <TextStyle variation="subdued">Kindly Login Again</TextStyle>
-                            </>
-                            <Button 
-                            primary
-                            onClick={()=>history('/login')}>
+                            <Banner
+                                title="Session Expired"
+                                status="info">Session Time Expired Kindly login again </Banner>
+                            <Button
+                                primary
+                                onClick={() => history('/login')}>
                                 Login
                             </Button>
                         </Stack>

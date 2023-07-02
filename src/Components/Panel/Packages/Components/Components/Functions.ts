@@ -8,7 +8,8 @@ export const Includestoarray = (includes: any, include_data: any) => {
             if (element === item.value) {
                 ar.push({
                     include_id: item.value,
-                    title: item.label
+                    title: item.label,
+                    image: item.image
                 })
             }
         })
@@ -44,7 +45,7 @@ export function lenthtoarray(length: any) {
     return ar;
 }
 
-export const deleteincludeitem = (data: any,setcustomizerefresh:any,customizerefresh:any) => {
+export const deleteincludeitem = (data: any, setcustomizerefresh: any, customizerefresh: any) => {
     const config = {
         method: "delete",
         url: process.env.REACT_APP_SHOP_NAME + "/api/removeicludeitem/" + data,

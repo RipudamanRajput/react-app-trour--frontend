@@ -181,7 +181,7 @@ function EditPackage() {
             duration: Number(duration),
             title: Packagename,
             overview: Overview,
-            description:description,
+            description: description,
             packageimg: Packageimg,
             price: Number(Cost),
             discount_type: discounttype,
@@ -344,7 +344,7 @@ function EditPackage() {
             data: {
                 title: includelabel,
                 include_id: includevalue,
-                image:indludeimg
+                image: indludeimg
             },
             headers: {
                 'Authorization': process.env.REACT_APP_TOKEN || '',
@@ -381,7 +381,8 @@ function EditPackage() {
                 ar.push({
                     id: item.id,
                     label: item.title,
-                    value: item.include_id
+                    value: item.include_id,
+                    image: item.image
                 })
             })
             setinclude_data(ar);

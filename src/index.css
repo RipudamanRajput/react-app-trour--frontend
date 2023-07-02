@@ -220,3 +220,10 @@ input:-webkit-autofill:active {
   border-right: unset;
   border-radius: 4px 0px 0px 4px !important;
 }
+
+.Emptystate>.Polaris-Card {
+  height: calc(100% - 119px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
